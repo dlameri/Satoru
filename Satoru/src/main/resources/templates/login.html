@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+
+<head>
+
+    <meta charset="utf-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+
+    <title>Satoru | Login</title>
+
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"></link>
+    <link th:href="@{/font-awesome/css/font-awesome.css}" rel="stylesheet"></link>
+
+    <link th:href="@{/css/animate.min.css}" rel="stylesheet"></link>
+    <link th:href="@{/css/style.css}" rel="stylesheet"></link>
+    
+
+</head>
+
+<body class="gray-bg" onload="document.f.username.focus();">
+
+    <div class="middle-box text-center loginscreen animated fadeInDown">
+        <div>
+            <div>
+
+                <h1 class="logo-name">智</h1>
+
+            </div>
+            <h3>Bem-vindo à Satoru</h3>
+            <p>Aprenda japonês de forma prática e eficiente
+            </p>            
+            <p th:if="${param.error}">
+	            Usuário ou senha inválido.
+	        </p>
+	        <p th:if="${param.logout}">
+	            Você foi deslogado
+	        </p>
+            <form name="f" class="m-t" role="form" method="post" th:action="@{/login}">
+                <div class="form-group">
+                    <input type="text" name="username" class="form-control" placeholder="Login" required="required"></input>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" class="form-control" placeholder="Senha" required="required"></input>
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+
+                <a href="#"><small>Forgot password?</small></a>
+                <p class="text-muted text-center"><small>Do not have an account?</small></p>
+                <a class="btn btn-sm btn-white btn-block" href="register.html">Create an account</a>
+            </form>
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script th:src="@{/js/jquery-2.1.1.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+
+</body>
+
+</html>

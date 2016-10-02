@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="pt-br">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta charset="utf-8"></meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+    <meta name="description" content=""></meta>
+    <meta name="author" content=""></meta>
     <!-- Add Your favicon here -->
-    <!--<link rel="icon" href="img/favicon.ico">-->
+    <!--<link rel="icon" th:href="@{/img/favicon.ico}"></link>-->
 
-    <title>INSPINIA - Landing Page</title>
+    <title>Satoru - Japonês de forma prática e eficiente</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"></link>
 
     <!-- Animation CSS -->
-    <link href="css/animate.min.css" rel="stylesheet">
+    <link th:href="@{/css/animate.min.css}" rel="stylesheet"></link>
 
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link th:href="@{/font-awesome/css/font-awesome.min.css}" rel="stylesheet"></link>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -25,8 +25,8 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <!-- Custom styles for this template -->
-    <link href="css/style.css" rel="stylesheet">
+    <!-- Custom styles for this template -->    
+    <link th:href="@{/css/home_style.css}" rel="stylesheet"></link>
 </head>
 <body id="page-top">
 <div class="navbar-wrapper">
@@ -39,7 +39,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">LOGIN</a>
+                    <a class="navbar-brand" th:href="@{/login}">LOGIN</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -69,7 +69,7 @@
                     </p>
                 </div>
                 <div class="carousel-image wow zoomIn">
-                    <img src="img/laptop.png" alt="laptop"/>
+                    <img src="img/laptop.png" alt="laptop"></img>
                 </div>
             </div>
             <!-- Set background for slide in css -->
@@ -136,7 +136,7 @@
         <div class="row">
             <div class="col-sm-offset-4 col-sm-4">
                 <div class="team-member wow zoomIn">
-                    <img src="img/avatar1.jpg" class="img-responsive img-circle" alt="">
+                    <img src="img/avatar1.jpg" class="img-responsive img-circle" alt=""></img>
                     <h4><span class="navy">Dimitri</span> Lameri</h4>
                     <p>Idealizador, desenvolvedor, CTO e CEO da plataforma Satoru.</p>
                     <ul class="list-inline social-icon">
@@ -263,12 +263,12 @@
     </div>
 </section>
 
-<script src="js/jquery-2.1.1.js"></script>
-<script src="js/pace.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/classie.js"></script>
-<script src="js/cbpAnimatedHeader.js"></script>
-<script src="js/wow.min.js"></script>
-<script src="js/inspinia.js"></script>
+<script th:src="@{/js/jquery-2.1.1.js}"></script>
+<script th:src="@{/js/pace.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/classie.js}"></script>
+<script th:src="@{/js/cbpAnimatedHeader.js}"></script>
+<script th:src="@{/js/wow.min.js}"></script>
+<script th:src="@{/js/inspinia.js}"></script>
 </body>
 </html>
