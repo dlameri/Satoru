@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<body>
+	<nav class="navbar-default navbar-static-side" role="navigation"
+		th:fragment="menu">
+		<div class="sidebar-collapse">
+			<ul class="nav" id="side-menu">
+				<li th:replace="layout/user-profile :: user"></li>
+					<li class="active">
+						<a th:href="@{/dashboard}">
+							<i class="fa fa-bar-chart-o"></i> 
+							<span class="nav-label">Home</span>
+						</a>
+					</li>				
+				<li>
+					<a href="#">
+						<i class="fa fa-graduation-cap"></i> 
+						<span class="nav-label">Cursos</span>
+						<span class="fa arrow"></span>
+					</a>
+					<ul class="nav nav-second-level">
+						<li><a href="graph_flot.html">Hiragana</a></li>
+						<li><a href="graph_morris.html">Katakana</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="mailbox.html">
+						<i class="fa fa-signal"></i> 
+						<span class="nav-label">Revisões</span>
+						<span class="label label-warning pull-right">19</span>
+					</a>
+				</li>
+			</ul>
+
+		</div>
+	</nav>
+</body>
+</html>
