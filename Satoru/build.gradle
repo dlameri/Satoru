@@ -36,7 +36,8 @@ configurations {
 }
 
 dependencies {
-	//compile('org.springframework.boot:spring-boot-starter-data-mongodb')
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
+	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
 	//compile('org.springframework.boot:spring-boot-devtools')	
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
     compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4:2.1.2.RELEASE')
