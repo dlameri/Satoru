@@ -1,0 +1,7 @@
+deploy:
+  provider: heroku
+  api_key:
+    secure: R+Y/MM3IGvHouXCifWwCU2UrROWkrc9xSS+kMAJ4UnLhDdMUiEK9Yk8Jo1hq/Yc/lNNYjNZRNQb6n3BY0Vr5jzhgfx9Vor5IUwmarRlaE5Xd3idP6x7VgSehtsAsK0u++33mWce4zr4KF6xQKEaQL4ZIIhS+I1rVNhDOn/vUCZT3JI98ur/CFCj+JvDARkQ0trkqTidIyBWDDFgScyZuVFH4zWXGk+0cVLDLASVmYYQGlCHXgCIobP93umjxKTxi0OwRKD0K2glwBHL6HO1hlH+vnxrY71YvkGAglD1Hs3JdLmwG/t60iiVz2wX4lma9QV34Xzm3de7gBUc5/YayZrPI9gyU1hcvF+7HBg6BUvjX4mqKMCTLQXC4+Mvus2pGYbnQrxZ6ViPe1feVWgw7lrcbF+pM9YSZFO9O3zVP27RFmWUF/WlQOR4yZ9jusc8+zrzdY8NjwGhLH3EX/vffCeujd3hR4F0pIMymKglEdaXdejutGYr+k8Dw9/LGjH3o7BCMXp7TX/cheWG1W8HdrKg8nlevaKXi/yviv7uWrC8WQfIH6CEzO5J2B4InxAd/+qSd1Hk1L6FAqTryRT3dSLlq/xMvLqBmiAz9/bjDFIQMflJQ/IdsdqrP3D514Vb/CuQvP7mNJNYnCJbuhOLcvCxTwqG2heq9O0QcS26y0WM=
+  app: satorusan
+  on:
+    repo: dlameri/Satoru
