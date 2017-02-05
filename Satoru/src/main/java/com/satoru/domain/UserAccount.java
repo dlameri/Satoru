@@ -24,8 +24,8 @@ public class UserAccount {
 	private String password;
 	private String firstname;
 	private String lastname;
-	private String status;
-	private Boolean enabled;
+	private UserAccountStatus status = UserAccountStatus.STATUS_DISABLED;
+	private Boolean enabled = false;
 	
 	@DBRef
 	private List<Role> roles = new ArrayList<Role>();
@@ -70,11 +70,11 @@ public class UserAccount {
 		this.lastname = lastname;
 	}
 
-	public String getStatus() {
+	public UserAccountStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(UserAccountStatus status) {
 		this.status = status;
 	}
 
@@ -88,6 +88,10 @@ public class UserAccount {
 
 	public List<Role> getRoles() {
 		return roles;
+	}
+	
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
 
 	public void addRole(Role role) {

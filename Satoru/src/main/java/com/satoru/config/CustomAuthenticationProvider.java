@@ -61,7 +61,7 @@ public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticat
             throw new BadCredentialsException("Invalid Login");
         }
         
-        if (!(UserAccountStatus.STATUS_APPROVED.name().equals(user.getStatus()))) {
+        if (!(UserAccountStatus.STATUS_APPROVED.equals(user.getStatus()))) {
         	logger.warn("Username {}: not approved", username);
             throw new BadCredentialsException("User has not been approved");
         }

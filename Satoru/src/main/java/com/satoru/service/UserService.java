@@ -6,7 +6,6 @@ import org.springframework.util.Assert;
 
 import com.satoru.domain.Role;
 import com.satoru.domain.UserAccount;
-import com.satoru.domain.UserAccountStatus;
 import com.satoru.repository.RoleRepository;
 import com.satoru.repository.UserAccountRepository;
 
@@ -21,21 +20,13 @@ public class UserService {
 		return roleRepository.findOne(role);
 	}
 	
-	public boolean create(UserAccount user) {
-		Assert.isNull(user.getId());
-
-		// duplicate username
-		if (userRepository.findByUsername(user.getUsername()) != null) {
-			return false;
-		}
-		user.setEnabled(false);
-		user.setStatus(UserAccountStatus.STATUS_DISABLED.name());
-		userRepository.save(user);
-		return true;
-	}
-	
 	public void save(UserAccount user) {
-		Assert.notNull(user.getId());
+		if (user.getId() == null) {
+			if (userRepository.findByUsername(user.getUsername()) != null) {
+				throw new IllegalStateException("Duplicate username");
+			}
+		} 
+		
 		userRepository.save(user);
 	}
 	

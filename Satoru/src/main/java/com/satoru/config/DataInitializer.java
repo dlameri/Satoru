@@ -1,5 +1,7 @@
 package com.satoru.config;
 
+import java.util.Arrays;
+
 import javax.annotation.PostConstruct;
 
 import org.slf4j.Logger;
@@ -32,50 +34,35 @@ public class DataInitializer {
 	
 	@PostConstruct
 	public void init() {
-		String demoPasswordEncoded = encoder.encode("demo");
-		logger.debug("initializing data, demo password encoded: {}", demoPasswordEncoded);
-		
 		//clear all collections, but leave indexes intact
 		dbService.cleanUp();
+				
+		Role admin = createRole("ROLE_ADMIN");
+		Role user = createRole("ROLE_USER");
 		
-		//establish roles
-		operations.insert(new Role("ROLE_USER"), "role");
-		operations.insert(new Role("ROLE_ADMIN"), "role");
+		createUser("Dimitri","Lameri","admin","admin", user, admin);
+		createUser("Jéssica","Lameri","user","user", user);	
+	}
+	
+	private Role createRole(String roleName) {
+		Role role = new Role(roleName);		
+		operations.insert(role, "role");
+		logger.info("Role created :" + roleName);
 		
+		return role;
+	}
+	
+	private void createUser(String firstName, String lastName, String userName, String password, Role... roles) {
 		UserAccount user = new UserAccount();
-		user.setFirstname("Bob");
-		user.setLastname("Doe");
-		user.setPassword(demoPasswordEncoded);
-		user.addRole(userService.getRole("ROLE_USER"));
-		user.setUsername("bob");		
-		userService.create(user);
-		//simulate account activation
+		user.setFirstname(firstName);
+		user.setLastname(lastName);
+		user.setPassword(encoder.encode(password));
+		user.setRoles(Arrays.asList(roles));
+		user.setUsername(userName);
 		user.setEnabled(true);
-		user.setStatus(UserAccountStatus.STATUS_APPROVED.name());		
+		user.setStatus(UserAccountStatus.STATUS_APPROVED);
+		logger.info("User created :" + userName);
+
 		userService.save(user);
-		
-		user = new UserAccount();
-		user.setFirstname("Jim");
-		user.setLastname("Doe");
-		user.setPassword(demoPasswordEncoded);
-		user.addRole(userService.getRole("ROLE_ADMIN"));
-		user.setUsername("jim");	
-		userService.create(user);
-		user.setEnabled(true);
-		user.setStatus(UserAccountStatus.STATUS_APPROVED.name());
-		userService.save(user);
-		
-		user = new UserAccount();
-		user.setFirstname("Ted");
-		user.setLastname("Doe");
-		user.setPassword(demoPasswordEncoded);
-		user.addRole(userService.getRole("ROLE_USER"));
-		user.addRole(userService.getRole("ROLE_ADMIN"));
-		user.setUsername("ted");	
-		userService.create(user);
-		user.setEnabled(true);
-		user.setStatus(UserAccountStatus.STATUS_APPROVED.name());
-		userService.save(user);
-		
 	}
 }
