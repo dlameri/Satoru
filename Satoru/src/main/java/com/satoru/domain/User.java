@@ -13,18 +13,18 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class UserAccount {
+public class User {
 	
 	@Id
 	private String id;
 
 	@Indexed(unique=true, direction=IndexDirection.DESCENDING, dropDups=true)
-	private String username;
+	private String email;
 	
 	private String password;
 	private String firstname;
 	private String lastname;
-	private UserAccountStatus status = UserAccountStatus.STATUS_DISABLED;
+	private UserStatus status = UserStatus.STATUS_DISABLED;
 	private Boolean enabled = false;
 	
 	@DBRef
@@ -37,13 +37,13 @@ public class UserAccount {
 	public void setId(String id) {
 		this.id = id;
 	}
-
-	public String getUsername() {
-		return username;
+	
+	public String getEmail() {
+		return email;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -70,11 +70,11 @@ public class UserAccount {
 		this.lastname = lastname;
 	}
 
-	public UserAccountStatus getStatus() {
+	public UserStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(UserAccountStatus status) {
+	public void setStatus(UserStatus status) {
 		this.status = status;
 	}
 
@@ -120,17 +120,17 @@ public class UserAccount {
 	}	
 	
 	public boolean equals(Object obj) {
-        if (!(obj instanceof UserAccount)) {
+        if (!(obj instanceof User)) {
             return false;
         }
         if (this == obj) {
             return true;
         }
-        UserAccount rhs = (UserAccount) obj;
+        User rhs = (User) obj;
         return new EqualsBuilder().append(id, rhs.id).isEquals();
     }
 
 	public int hashCode() {
-        return new HashCodeBuilder().append(id).append(username).toHashCode();
-    }
+        return new HashCodeBuilder().append(id).append(email).toHashCode();
+    }	
 }

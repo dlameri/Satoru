@@ -4,25 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import com.satoru.domain.Role;
-import com.satoru.domain.UserAccount;
-import com.satoru.repository.RoleRepository;
-import com.satoru.repository.UserAccountRepository;
+import com.satoru.domain.User;
+import com.satoru.repository.UserRepository;
 
 @Service
 public class UserService {
-
-	@Autowired private UserAccountRepository userRepository;
+	@Autowired private UserRepository userRepository;
 	
-	@Autowired private RoleRepository roleRepository;
-	
-	public Role getRole(String role) {
-		return roleRepository.findOne(role);
-	}
-	
-	public void save(UserAccount user) {
+	public void save(User user) {
 		if (user.getId() == null) {
-			if (userRepository.findByUsername(user.getUsername()) != null) {
+			if (userRepository.findByEmail(user.getEmail()) != null) {
 				throw new IllegalStateException("Duplicate username");
 			}
 		} 
@@ -30,13 +21,13 @@ public class UserService {
 		userRepository.save(user);
 	}
 	
-	public void delete(UserAccount user) {
+	public void delete(User user) {
 		Assert.notNull(user.getId());
 		userRepository.delete(user);
 	}
 	
-	public UserAccount getByUsername(String username) {
-		return userRepository.findByUsername(username);
+	public User getByEmail(String email) {
+		return userRepository.findByEmail(email);
 	}
 	
 }

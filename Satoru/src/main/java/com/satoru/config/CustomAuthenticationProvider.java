@@ -18,8 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import com.satoru.domain.UserAccount;
-import com.satoru.domain.UserAccountStatus;
+import com.satoru.domain.UserStatus;
 import com.satoru.service.UserService;
 
 /*
@@ -42,31 +41,31 @@ public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticat
 	}
 
 	@Override
-	public UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication)
+	public UserDetails retrieveUser(String email, UsernamePasswordAuthenticationToken authentication)
 			throws AuthenticationException {
         String password = (String) authentication.getCredentials();
         if (!StringUtils.hasText(password)) {
-        	logger.warn("Username {}: no password provided", username);
+        	logger.warn("Email {}: no password provided", email);
             throw new BadCredentialsException("Please enter password");
         }
 
-        UserAccount user = userService.getByUsername(username);
+        com.satoru.domain.User user = userService.getByEmail(email);
         if (user == null) {
-        	logger.warn("Username {} password {}: user not found", username, password);
+        	logger.warn("Email {} password {}: user not found", email, password);
             throw new UsernameNotFoundException("Invalid Login");
         }
         
         if (!encoder.matches(password, user.getPassword())) {
-        	logger.warn("Username {} password {}: invalid password", username, password);
+        	logger.warn("Email {} password {}: invalid password", email, password);
             throw new BadCredentialsException("Invalid Login");
         }
         
-        if (!(UserAccountStatus.STATUS_APPROVED.equals(user.getStatus()))) {
-        	logger.warn("Username {}: not approved", username);
+        if (!(UserStatus.STATUS_APPROVED.equals(user.getStatus()))) {
+        	logger.warn("Email {}: not approved", email);
             throw new BadCredentialsException("User has not been approved");
         }
         if (!user.getEnabled()) {
-        	logger.warn("Username {}: disabled", username);
+        	logger.warn("Email {}: disabled", email);
             throw new BadCredentialsException("User disabled");
         }
 
@@ -77,7 +76,7 @@ public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticat
         	auths = AuthorityUtils.NO_AUTHORITIES;
         }
 
-        return new User(username, password, user.getEnabled(), // enabled
+        return new User(email, password, user.getEnabled(), // enabled
                 true, // account not expired
                 true, // credentials not expired
                 true, // account not locked
