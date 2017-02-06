@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.satoru.domain.Role;
@@ -25,9 +24,7 @@ public class DataInitializer {
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 		
 	@Autowired private UserService userService;
-	@Autowired private RoleService roleService;
-	
-    @Autowired private PasswordEncoder encoder; 
+	@Autowired private RoleService roleService; 
     
     @Autowired protected DbService dbService;
 	
@@ -55,7 +52,7 @@ public class DataInitializer {
 		User user = new User();
 		user.setFirstname(firstName);
 		user.setLastname(lastName);
-		user.setPassword(encoder.encode(password));
+		user.setPassword(password);
 		user.setRoles(Arrays.asList(roles));
 		user.setEmail(email);
 		user.setEnabled(true);

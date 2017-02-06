@@ -10,7 +10,7 @@ import com.satoru.repository.RoleRepository;
 public class RoleService {
 	@Autowired private RoleRepository roleRepository;
 	
-	public Role getRole(String role) {
+	public Role findRole(String role) {
 		return roleRepository.findOne(role);
 	}
 	
