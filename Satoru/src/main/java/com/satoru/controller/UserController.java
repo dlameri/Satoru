@@ -37,7 +37,7 @@ public class UserController {
 	public String create(User user, BindingResult result, WebRequest request, Errors errors) {
 		if (userService.exists(user)) {
 			result.rejectValue("email", "email.exist");
-			
+						
 			return "register/index";
 		} else {
 			user.setEnabled(true);
@@ -45,8 +45,8 @@ public class UserController {
 			user.addRole(roleService.findRole("ROLE_USER"));
 			
 			userService.save(user);
-			
-			return "forward:/login";
+
+			return "redirect:/login?registerSuccess";
 		}
 	}
 }

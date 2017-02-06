@@ -36,6 +36,9 @@
 	        <p class="login-error" th:if="${param.logout}">
 	            Você foi deslogado
 	        </p>
+	        <p class="register-success" th:if="${param.registerSuccess}">
+	            Cadastro realizado com sucesso!
+	        </p>
             <form name="f" class="m-t" role="form" method="post" th:action="@{/login}">
                 <div class="form-group">
                     <input type="text" name="username" class="form-control" placeholder="Login" required="required"></input>
