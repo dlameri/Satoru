@@ -42,7 +42,7 @@ public class UserController {
 		} else {
 			user.setEnabled(true);
 			user.setStatus(UserStatus.STATUS_APPROVED);
-			user.addRole(roleService.findRole("ROLE_USER"));
+			user.addRole(roleService.findOne("ROLE_USER"));
 			
 			userService.save(user);
 

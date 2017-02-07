@@ -25,7 +25,7 @@ public abstract class DataInitializer {
 	public abstract void init();
 	
 	protected Role createRoleIfNotExists(String roleName) {
-		Role role = roleService.findRole(roleName);
+		Role role = roleService.findOne(roleName);
 		
 		if (role == null) {
 			role = new Role(roleName);

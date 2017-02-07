@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+	xmlns:th="http://www.thymeleaf.org" 
+	 xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	lang="pt-br">
 <body>
 	<nav class="navbar-default navbar-static-side" role="navigation"
 		th:fragment="menu">
 		<div class="sidebar-collapse">
 			<ul class="nav" id="side-menu">
 				<li th:replace="layout/user-profile :: user"></li>
-					<li class="active">
-						<a th:href="@{/dashboard}">
-							<i class="fa fa-bar-chart-o"></i> 
-							<span class="nav-label">Home</span>
-						</a>
-					</li>				
-				<li>
+				<li class="active">
+					<a th:href="@{/dashboard}">
+						<i class="fa fa-bar-chart-o"></i> 
+						<span class="nav-label">Home</span>
+					</a>
+				</li>
+				
+				<li sec:authorize="hasRole('ROLE_USER')">
 					<a href="#">
 						<i class="fa fa-graduation-cap"></i> 
 						<span class="nav-label">Cursos</span>
@@ -24,12 +27,22 @@
 						<li><a href="graph_morris.html">Katakana</a></li>
 					</ul>
 				</li>
-				<li>
+				<li sec:authorize="hasRole('ROLE_USER')">
 					<a href="mailbox.html">
 						<i class="fa fa-signal"></i> 
 						<span class="nav-label">Revisões</span>
 						<span class="label label-warning pull-right">19</span>
 					</a>
+				</li>
+				<li sec:authorize="hasRole('ROLE_ADMIN')">
+					<a href="#">
+						<i class="fa fa-user"></i> 
+						<span class="nav-label">Administração</span>
+						<span class="fa arrow"></span>
+					</a>
+					<ul class="nav nav-second-level">
+						<li><a th:href="@{/course}">Cadastrar Curso</a></li>
+					</ul>
 				</li>
 			</ul>
 

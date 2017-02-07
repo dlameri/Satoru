@@ -13,11 +13,11 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import com.satoru.interceptor.ThymeleafLayoutInterceptor;
 
 @Configuration
-public class MvcConfig extends WebMvcConfigurerAdapter {
+public class MVCConfig extends WebMvcConfigurerAdapter {
 	
 	List<HandlerInterceptorAdapter> customInterceptors = new ArrayList<>();
 	
-	public MvcConfig() {
+	public MVCConfig() {
 		customInterceptors = Arrays.asList(
 			new ThymeleafLayoutInterceptor()
 		);
