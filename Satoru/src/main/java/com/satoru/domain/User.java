@@ -1,20 +1,28 @@
 package com.satoru.domain;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Document
-public class User {
+public class User implements UserDetails {
 	
+	@Transient
+	private static final long serialVersionUID = 1228285269958316279L;
+
 	@Id
 	private String id;
 
@@ -28,7 +36,7 @@ public class User {
 	private Boolean enabled = false;
 	
 	@DBRef
-	private List<Role> roles = new ArrayList<Role>();
+	private List<Role> roles = new ArrayList<Role>();	
 
 	public String getId() {
 		return id;
@@ -65,6 +73,10 @@ public class User {
 	public String getLastname() {
 		return lastname;
 	}
+	
+	public String getFullName() {
+		return getFirstname() + " " + getLastname();
+	}
 
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
@@ -78,7 +90,7 @@ public class User {
 		this.status = status;
 	}
 
-	public Boolean getEnabled() {
+	public boolean isEnabled() {
 		return enabled;
 	}
 
@@ -132,5 +144,35 @@ public class User {
 
 	public int hashCode() {
         return new HashCodeBuilder().append(id).append(email).toHashCode();
-    }	
+    }
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		if (!getRoles().isEmpty()) {
+			return AuthorityUtils.commaSeparatedStringToAuthorityList(getRolesCSV());
+        } else {
+        	return AuthorityUtils.NO_AUTHORITIES;
+        }
+	}
+
+	@Override
+	public String getUsername() {
+		return getEmail();
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
 }

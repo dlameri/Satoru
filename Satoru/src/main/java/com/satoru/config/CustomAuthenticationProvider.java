@@ -1,7 +1,5 @@
 package com.satoru.config;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,15 +7,13 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import com.satoru.domain.User;
 import com.satoru.domain.UserStatus;
 import com.satoru.service.UserService;
 
@@ -49,7 +45,7 @@ public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticat
             throw new BadCredentialsException("Please enter password");
         }
 
-        com.satoru.domain.User user = userService.getByEmail(email);
+        User user = userService.getByEmail(email);
         if (user == null) {
         	logger.warn("Email {} password {}: user not found", email, password);
             throw new UsernameNotFoundException("Invalid Login");
@@ -64,23 +60,12 @@ public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticat
         	logger.warn("Email {}: not approved", email);
             throw new BadCredentialsException("User has not been approved");
         }
-        if (!user.getEnabled()) {
+        if (!user.isEnabled()) {
         	logger.warn("Email {}: disabled", email);
             throw new BadCredentialsException("User disabled");
         }
-
-        final List<GrantedAuthority> auths;
-        if (!user.getRoles().isEmpty()) {
-	    	auths = AuthorityUtils.commaSeparatedStringToAuthorityList(user.getRolesCSV());
-        } else {
-        	auths = AuthorityUtils.NO_AUTHORITIES;
-        }
-
-        return new User(email, password, user.getEnabled(), // enabled
-                true, // account not expired
-                true, // credentials not expired
-                true, // account not locked
-                auths);
+        
+        return user;
 	}
 
 }

@@ -23,8 +23,7 @@
 						<span class="fa arrow"></span>
 					</a>
 					<ul class="nav nav-second-level">
-						<li><a href="graph_flot.html">Hiragana</a></li>
-						<li><a href="graph_morris.html">Katakana</a></li>
+						<li th:each="course : ${courses}"><a th:href="@{/study/course(id=${course.id})}" th:text="${course.name}"></a></li>
 					</ul>
 				</li>
 				<li sec:authorize="hasRole('ROLE_USER')">

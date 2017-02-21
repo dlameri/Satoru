@@ -3,6 +3,7 @@ package com.satoru.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -10,6 +11,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.satoru.annotation.Layout;
 
+@Component
 public class ThymeleafLayoutInterceptor extends HandlerInterceptorAdapter {
 
     private static final String DEFAULT_LAYOUT = Layout.NONE;

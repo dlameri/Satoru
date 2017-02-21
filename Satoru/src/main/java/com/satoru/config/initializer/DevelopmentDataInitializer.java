@@ -22,12 +22,15 @@ public class DevelopmentDataInitializer extends DataInitializer{
 	public void init() {
 		//clear all collections, but leave indexes intact
 		cleanUp();
-				
+
 		Role admin = createRoleIfNotExists("ROLE_ADMIN");
 		Role user = createRoleIfNotExists("ROLE_USER");
-		
+
 		createUserIfNotExists("Dimitri","Lameri","admin@admin.com","admin", user, admin);
-		createUserIfNotExists("Jéssica","Lameri","user@user.com","user", user);		
+		createUserIfNotExists("Jéssica","Lameri","user@user.com","user", user);
+
+		createCourseIfNotExist("Hiragana", "Curso de Hiragana");
+		createCourseIfNotExist("Katakana", "Curso de Katakana");
 	}
 	
 	private void cleanUp() {

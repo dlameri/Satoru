@@ -12,4 +12,8 @@ public class CourseService extends GenericService<Course, String, CourseReposito
 	public CourseService() {
 		this.sort = new Sort(Direction.DESC, "name");
 	}
+	
+	public Course findByName(String name) {
+		return getRepository().findByName(name);
+	}
 }

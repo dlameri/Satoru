@@ -8,9 +8,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.satoru.domain.Course;
 import com.satoru.domain.Role;
 import com.satoru.domain.User;
 import com.satoru.domain.UserStatus;
+import com.satoru.service.CourseService;
 import com.satoru.service.RoleService;
 import com.satoru.service.UserService;
 
@@ -19,10 +21,25 @@ public abstract class DataInitializer {
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 		
 	@Autowired private UserService userService;
-	@Autowired private RoleService roleService;    
+	@Autowired private RoleService roleService;
+	@Autowired private CourseService courseService;
 	
 	@PostConstruct
 	public abstract void init();
+	
+	protected Course createCourseIfNotExist(String name, String description) {
+		Course course = courseService.findByName(name);
+
+		if (course == null) {
+			course = new Course();
+			course.setName(name);
+			course.setDescription(name);
+			
+			courseService.save(course);
+		}
+		
+		return course;
+	}
 	
 	protected Role createRoleIfNotExists(String roleName) {
 		Role role = roleService.findOne(roleName);

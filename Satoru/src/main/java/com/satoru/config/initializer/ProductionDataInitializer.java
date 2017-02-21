@@ -15,6 +15,9 @@ public class ProductionDataInitializer extends DataInitializer{
 		Role user = createRoleIfNotExists("ROLE_USER");
 		
 		createUserIfNotExists("Dimitri","Lameri","dimitrilameri@gmail.com","admin", user, admin);
+		
+		createCourseIfNotExist("Hiragana", "Curso de Hiragana");
+		createCourseIfNotExist("Katakana", "Curso de Katakana");
 	}
 
 }

@@ -1,25 +1,29 @@
 package com.satoru.config;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.satoru.interceptor.CourseMenuInterceptor;
 import com.satoru.interceptor.ThymeleafLayoutInterceptor;
 
 @Configuration
-public class MVCConfig extends WebMvcConfigurerAdapter {
+public class MVCConfig extends WebMvcConfigurerAdapter {	
 	
-	List<HandlerInterceptorAdapter> customInterceptors = new ArrayList<>();
+	@Autowired private List<HandlerInterceptorAdapter> customInterceptors;
 	
-	public MVCConfig() {
-		customInterceptors = Arrays.asList(
-			new ThymeleafLayoutInterceptor()
+	@Bean
+	public List<HandlerInterceptorAdapter> customInterceptors(ThymeleafLayoutInterceptor thymeleafLayoutInterceptor, CourseMenuInterceptor courseMenuInterceptor) {
+		return Arrays.asList(
+			courseMenuInterceptor,
+			thymeleafLayoutInterceptor			
 		);
 	}
 
