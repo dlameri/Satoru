@@ -32,6 +32,10 @@ public class Course {
 	}
 
 	public String getId() {
+		if ("".equals(id.trim())) {
+			return null;
+		}
+
 		return id;
 	}
 

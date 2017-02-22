@@ -24,9 +24,9 @@
 		</div>
 	</div>
 	<script th:fragment="customJS">
-		$(document)
-				.ready(
+		$(document).ready(
 						function() {
+							setActive(["home"]);
 
 							var lineData = {
 								labels : [ "January", "February", "March",

@@ -9,14 +9,14 @@
 		<div class="sidebar-collapse">
 			<ul class="nav" id="side-menu">
 				<li th:replace="layout/user-profile :: user"></li>
-				<li class="active">
-					<a th:href="@{/dashboard}">
+				<li id="home">
+					<a th:href="@{/home}">
 						<i class="fa fa-bar-chart-o"></i> 
 						<span class="nav-label">Home</span>
 					</a>
 				</li>
 				
-				<li sec:authorize="hasRole('ROLE_USER')">
+				<li id="course" sec:authorize="hasRole('ROLE_USER')">
 					<a href="#">
 						<i class="fa fa-graduation-cap"></i> 
 						<span class="nav-label">Cursos</span>
@@ -26,21 +26,21 @@
 						<li th:each="course : ${courses}"><a th:href="@{/study/course(id=${course.id})}" th:text="${course.name}"></a></li>
 					</ul>
 				</li>
-				<li sec:authorize="hasRole('ROLE_USER')">
+				<li id="review" sec:authorize="hasRole('ROLE_USER')">
 					<a href="mailbox.html">
 						<i class="fa fa-signal"></i> 
 						<span class="nav-label">Revisões</span>
 						<span class="label label-warning pull-right">19</span>
 					</a>
 				</li>
-				<li sec:authorize="hasRole('ROLE_ADMIN')">
+				<li id="admin" sec:authorize="hasRole('ROLE_ADMIN')">
 					<a href="#">
 						<i class="fa fa-user"></i> 
 						<span class="nav-label">Administração</span>
 						<span class="fa arrow"></span>
 					</a>
 					<ul class="nav nav-second-level">
-						<li><a th:href="@{/course}">Cadastrar Curso</a></li>
+						<li id="adminCourse"><a th:href="@{/course}">Curso</a></li>
 					</ul>
 				</li>
 			</ul>

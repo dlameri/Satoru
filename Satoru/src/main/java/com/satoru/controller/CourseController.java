@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -34,10 +35,24 @@ public class CourseController {
 
 		return "course/form";
 	}
+	
+	@GetMapping("/edit/{id}")
+	public String editForm(Model model, @PathVariable("id") String id) {
+		model.addAttribute("title", "Edição");
+		model.addAttribute("model", courseService.findOne(id));
+
+		return "course/form";
+	}
+	
+	@GetMapping("/remove/{id}")
+	public String remove(Model model, @PathVariable("id") String id) {
+		courseService.delete(courseService.findOne(id));
+		
+		return "redirect:/course";
+	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String processForm(@ModelAttribute(value = "model") Course course) {
-		course.setId(null);
+	public String processForm(@ModelAttribute(value = "model") Course course) {		
 		courseService.save(course);
 		
 		return "redirect:/course";

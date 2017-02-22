@@ -19,6 +19,7 @@
 
 <link th:href="@{/css/animate.min.css}" rel="stylesheet"></link>
 <link th:href="@{/css/style.css}" rel="stylesheet"></link>
+<link th:href="@{/css/custom.css}" rel="stylesheet"></link>
 
 </head>
 
@@ -113,6 +114,20 @@
 
 	<!-- ChartJS-->
 	<script th:src="@{/js/plugins/chartJs/Chart.min.js}"></script>
+	
+	<script type="text/javascript">
+		function setActive(ids) {
+			$(".active").removeClass("active");
+			$(".in").removeClass("in");
+					
+			for (var i in ids) {
+				$("#" + ids[i])
+					.addClass("active")
+					.parent("ul.collapse")
+					.addClass("in");
+			}
+		}
+	</script>
 	
 	<script th:replace="${view} :: customJS"></script>
 </body>
