@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org" lang="pt-br">
 <body>
-	<h2 th:fragment="title">Cursos</h2>
+	<h2 th:fragment="title">Lições</h2>
 	<div class="wrapper wrapper-content" th:fragment="content">
 		<div class="row">
 			<div class="col-lg-12">
@@ -15,7 +15,7 @@
 							<div class="col-sm-3 col-sm-offset-9">
 								<div class="input-group">
 									<span class="input-group-btn">
-                                        <a class="btn btn-sm btn-primary pull-right" th:href="@{/course/new}">Criar Curso</a> 
+                                        <a class="btn btn-sm btn-primary pull-right" th:href="@{lesson/new}">Criar Lição</a> 
                                     </span>
                                 </div>
 							</div>
@@ -38,7 +38,7 @@
 								    	<td th:text="${model.description}"></td>
 								    	<td>
 								    	 
-								    		<a title="Lições" th:href="@{/course/{id}/lesson(id=${model.id})}"><i class="fa fa-book fa-2 text-navy"></i></a>
+								    		<a title="Lições" th:href="@{/course/{id}/lessons(id=${model.id})}"><i class="fa fa-book fa-2 text-navy"></i></a>
 								    		<a title="Editar" th:href="@{/course/edit/{id}(id=${model.id})}"><i class="fa fa-pencil fa-2 text-navy"></i></a>
 								    		<a title="Excluir" onclick="return confirm('Deseja realmente excluir este curso?')" th:href="@{/course/remove/{id}(id=${model.id})}"><i class="fa fa-times fa-2 text-navy"></i></a>
 							    		</td>

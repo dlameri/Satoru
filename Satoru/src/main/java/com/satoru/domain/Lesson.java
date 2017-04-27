@@ -3,23 +3,22 @@ package com.satoru.domain;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.IndexDirection;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class Course {
+public class Lesson {
 	@Id
 	private String id;
-	
-	@Indexed(unique=true, direction=IndexDirection.DESCENDING, dropDups=true)
+
 	private String name;
 	
 	private String description;
 	
+	private List<LessonWord> lessonWords;
+	
 	@DBRef
-	private List<Lesson> lessons;
+	private Course course;
 
 	public String getName() {
 		return name;
@@ -49,11 +48,19 @@ public class Course {
 		this.id = id;
 	}
 
-	public List<Lesson> getLessons() {
-		return lessons;
+	public List<LessonWord> getLessonWords() {
+		return lessonWords;
 	}
 
-	public void setLessons(List<Lesson> lessons) {
-		this.lessons = lessons;
+	public void setLessonWords(List<LessonWord> lessonWords) {
+		this.lessonWords = lessonWords;
+	}
+
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
 	}
 }
