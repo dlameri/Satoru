@@ -36,11 +36,9 @@
 								    <tr th:each="model : ${models}">
 								    	<td th:text="${model.name}"></td>
 								    	<td th:text="${model.description}"></td>
-								    	<td>
-								    	 
-								    		<a title="Lições" th:href="@{/course/{id}/lessons(id=${model.id})}"><i class="fa fa-book fa-2 text-navy"></i></a>
-								    		<a title="Editar" th:href="@{/course/edit/{id}(id=${model.id})}"><i class="fa fa-pencil fa-2 text-navy"></i></a>
-								    		<a title="Excluir" onclick="return confirm('Deseja realmente excluir este curso?')" th:href="@{/course/remove/{id}(id=${model.id})}"><i class="fa fa-times fa-2 text-navy"></i></a>
+								    	<td>								    	 
+								    		<a title="Editar" th:href="@{lesson/edit/{id}(id=${model.id})}"><i class="fa fa-pencil fa-2 text-navy"></i></a>
+								    		<a title="Excluir" onclick="return confirm('Deseja realmente excluir este curso?')" th:href="@{lesson/remove/{id}(id=${model.id})}"><i class="fa fa-times fa-2 text-navy"></i></a>
 							    		</td>
 								    </tr>
 								</tbody>

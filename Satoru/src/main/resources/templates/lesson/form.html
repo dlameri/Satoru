@@ -11,7 +11,7 @@
 						<h5 th:text="${title}">Título</h5>
 					</div>
 					<div class="ibox-content">
-						<form method="post" class="form-horizontal" th:object="${model}" th:action="@{/course/save}">
+						<form method="post" class="form-horizontal" th:object="${model}" th:action="@{lesson/save}">
 							<input type="hidden" th:field="*{id}"></input>
 							<div class="form-group">
 								<label class="col-sm-2 control-label">Nome</label>
@@ -28,7 +28,7 @@
 							<div class="hr-line-dashed"></div>
 							<div class="form-group">
 								<div class="col-sm-4 col-sm-offset-2">
-									<a th:href="@{/course}" class="btn btn-white">Cancelar</a>
+									<a th:href="@{../lesson}" class="btn btn-white">Cancelar</a>
 									<button class="btn btn-primary" type="submit">Salvar</button>
 								</div>
 							</div>
