@@ -11,7 +11,7 @@
 						<h5 th:text="${title}">Título</h5>
 					</div>
 					<div class="ibox-content">
-						<form method="post" class="form-horizontal" th:object="${model}" th:action="@{lesson/save}">
+						<form method="post" class="form-horizontal" th:object="${model}" th:action="@{save}">
 							<input type="hidden" th:field="*{id}"></input>
 							<div class="form-group">
 								<label class="col-sm-2 control-label">Nome</label>
@@ -25,13 +25,46 @@
 									<input type="text" th:field="*{description}" class="form-control"></input>
 								</div>
 							</div>
+							<div class="form-group">					
+	                            <label class="col-sm-2 control-label">Palavra</label>
+								<div class="col-sm-4">
+									<input type="text" id="word" class="form-control" placeholder="Palavra em Japonês"></input>
+								</div>
+								<div class="col-sm-4">
+									<input type="text" id="romanizedWord" class="form-control" placeholder="Palavra romanizada"></input>
+								</div>
+								<div class="col-sm-2">
+									<button class="btn btn-primary add" type="button">+</button>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Palavras adicionadas</label>
+								<div class="col-sm-10">
+									<div class="bootstrap-tagsinput">
+										<span class="tag label label-primary hidden clonable">
+											<span class="wordLabel"></span>
+											<input type="hidden" disabled="disabled" class="word" th:field="*{lessonWords[0].word}"></input>
+											<input type="hidden" disabled="disabled" class="romanizedWord" th:field="*{lessonWords[0].romanizedWord}"></input>
+											
+											<span data-role="remove"></span>
+										</span>
+										<span th:each="lessonWord, stat : ${lessonWords}" class="tag label label-primary">
+											<span class="wordLabel" th:value="{lessonWord.word}"></span>													         										   
+										    <input type="hidden" class="word" th:field="*{lessonWords[__${stat.index}__].word}"></input>
+											<input type="hidden" class="romanizedWord" th:field="*{lessonWords[__${stat.index}__].romanizedWord}"></input>
+											
+											<span data-role="remove"></span>
+										</span>
+									</div>
+								</div>
+							</div>
 							<div class="hr-line-dashed"></div>
 							<div class="form-group">
 								<div class="col-sm-4 col-sm-offset-2">
 									<a th:href="@{../lesson}" class="btn btn-white">Cancelar</a>
 									<button class="btn btn-primary" type="submit">Salvar</button>
 								</div>
-							</div>
+							</div>							
 						</form>
 					</div>
 				</div>
@@ -39,7 +72,44 @@
 		</div>
 	</div>
 	<script th:fragment="customJS">
-		$(function() { setActive(["admin", "adminCourse"]); })
+		function rearrengeIndex() {
+			var index = 0;
+			$(".bootstrap-tagsinput .tag").not(".clonable").each(function() {
+				$(this).find(".word").attr("name", "lessonWords[" + index + "].word");
+				$(this).find(".romanizedWord").attr("name", "lessonWords[" + index + "].romanizedWord");
+				
+				index++;
+			});
+		}
+		
+		$(function() { 			
+			setActive(["admin", "adminCourse"]);
+			
+			$(document).on('click', 'span[data-role=remove]', function() {
+				$(this).parent().remove();
+				
+				rearrengeIndex();
+			});
+			
+			
+			$(document).on('click', '.add', function() {
+				var clone = $(".clonable").clone(true);
+				
+				clone.find(".wordLabel").html($("#word").val());
+				clone.find(".word").val($("#word").val()).removeAttr("disabled");				
+				clone.find(".romanizedWord").val($("#romanizedWord").val()).removeAttr("disabled");
+				clone.removeClass("clonable").removeClass("hidden");
+				
+				$("#word").val("");
+				$("#romanizedWord").val("");
+				
+				clone.appendTo( ".bootstrap-tagsinput" );
+				
+				rearrengeIndex();
+			});
+			
+			
+		});
 	</script>
 </body>
 </html>

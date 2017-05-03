@@ -27,7 +27,7 @@ public class LessonController {
 
 	@GetMapping
 	public String list(Model model, @PathVariable("courseId") String courseId) {
-		model.addAttribute("lessons", courseService.findOne(courseId).getLessons());
+		model.addAttribute("models", courseService.findOne(courseId).getLessons());
 
 		return "lesson/list";
 	}
@@ -61,6 +61,9 @@ public class LessonController {
 		lesson.setCourse(course);
 		
 		lessonService.save(lesson);
+		
+		course.addLesson(lesson);
+		courseService.save(course);
 		
 		return "redirect:/course/" + courseId + "/lesson";
 	}

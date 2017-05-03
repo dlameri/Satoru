@@ -1,5 +1,6 @@
 package com.satoru.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -55,5 +56,13 @@ public class Course {
 
 	public void setLessons(List<Lesson> lessons) {
 		this.lessons = lessons;
+	}
+
+	public void addLesson(Lesson lesson) {
+		if (lessons == null) {
+			lessons = new ArrayList<>();
+		}
+
+		lessons.add(lesson);
 	}
 }

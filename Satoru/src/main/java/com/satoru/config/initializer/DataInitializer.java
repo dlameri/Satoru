@@ -26,7 +26,7 @@ public abstract class DataInitializer {
 	
 	@PostConstruct
 	public abstract void init();
-	
+		
 	protected Course createCourseIfNotExist(String name, String description) {
 		Course course = courseService.findByName(name);
 
