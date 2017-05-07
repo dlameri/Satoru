@@ -13,7 +13,7 @@ import com.satoru.repository.LessonRepository;
 @Service
 public class LessonService extends GenericService<Lesson, String, LessonRepository>{
 	public LessonService() {
-		this.sort = new Sort(Direction.DESC, "name");
+		this.sort = new Sort(Direction.ASC, "order");
 	}
 
 	public Lesson findByNameAndCourse(String name, Course course) {

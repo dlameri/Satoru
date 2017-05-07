@@ -78,3 +78,11 @@
 .bootstrap-tagsinput .tag [data-role="remove"]:hover:active {
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
+
+.lesson-name {	
+    font-size: 16px;
+    font-weight: 600;
+    color: #676a6c;
+    display: block;
+    margin: 2px 0 5px 0;
+}

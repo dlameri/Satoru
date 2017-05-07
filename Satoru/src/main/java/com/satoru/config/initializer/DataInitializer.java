@@ -32,11 +32,12 @@ public abstract class DataInitializer {
 	@PostConstruct
 	public abstract void init();
 		
-	protected Lesson createLessonIfNotExist(Course course, String name, String description, List<LessonWord> lessonWords) {
+	protected Lesson createLessonIfNotExist(Course course, Integer order, String name, String description, List<LessonWord> lessonWords) {
 		Lesson lesson = lessonService.findByNameAndCourse(name, course);
 		
 		if (lesson == null) {
 			lesson = new Lesson();
+			lesson.setOrder(order);
 			lesson.setName(name);
 			lesson.setDescription(description);
 			lesson.setLessonWords(lessonWords);

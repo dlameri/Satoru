@@ -33,10 +33,9 @@ public class DevelopmentDataInitializer extends DataInitializer{
 		createUserIfNotExists("Dimitri","Lameri","admin@admin.com","admin", user, admin);
 		createUserIfNotExists("Jéssica","Lameri","user@user.com","user", user);
 
-		Course hiragana = createCourseIfNotExist("Hiragana", "Curso de Hiragana");
-		createCourseIfNotExist("Katakana", "Curso de Katakana");
+		Course hiragana = createCourseIfNotExist("Hiragana", "Curso de Hiragana");		
 				
-		createLessonIfNotExist(hiragana, "Lição 1", "Pronomes pessoais", Arrays.asList(
+		createLessonIfNotExist(hiragana, 1, "Quem sou eu?", "Pronomes pessoais", Arrays.asList(
 				new LessonWord("わたし", "wa-ta-shi", "Eu (formal masculino, normal feminino)"),
 				new LessonWord("ぼく", "bo-ku", "Eu (normal masculino)"),
 				new LessonWord("かれ", "ka-re", "Ele"),
@@ -44,7 +43,7 @@ public class DevelopmentDataInitializer extends DataInitializer{
 				new LessonWord("あなた", "a-na-ta", "Você")
 		));
 		
-		createLessonIfNotExist(hiragana, "Lição 2", "Palavras simples", Arrays.asList(				
+		createLessonIfNotExist(hiragana, 2, "Obrigado e Tchau", "Palavras simples", Arrays.asList(				
 				new LessonWord("ありがとう", "a-ri-ga-to-u", "Obrigado"),
 				new LessonWord("こんにちは", "ko-n-ni-chi-wa", "Hello"),
 				new LessonWord("さよなら", "sa-yo-na-ra", "Hello")

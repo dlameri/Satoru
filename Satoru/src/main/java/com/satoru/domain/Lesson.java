@@ -15,6 +15,8 @@ public class Lesson {
 	
 	private String description;
 	
+	private Integer order;
+	
 	private List<LessonWord> lessonWords;
 	
 	@DBRef
@@ -62,5 +64,13 @@ public class Lesson {
 
 	public void setCourse(Course course) {
 		this.course = course;
+	}
+
+	public Integer getOrder() {
+		return order;
+	}
+
+	public void setOrder(Integer order) {
+		this.order = order;
 	}
 }

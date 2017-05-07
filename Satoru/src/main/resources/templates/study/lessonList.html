@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<body>
+	<h2 th:fragment="title" th:text="${title}">Título</h2>
+	<div class="wrapper wrapper-content" th:fragment="content">
+		<div class="row">
+			<div th:each="model, stat : ${models}" class="col-md-3">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <div>
+                        	<small class="text-muted" th:text="${'Lição ' + model.order}">Lição</small>
+                            <a href="#" class="lesson-name" th:text="${model.name}">Nome</a>
+                            <div class="small m-t-xs" th:text="${model.description}">Descrição</div>
+                            <div class="m-t text-righ">
+                                <a href="#" class="btn btn-xs btn-outline btn-primary">Aprender <i class="fa fa-long-arrow-right"></i> </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>	
+		</div>
+	</div>
+	<script th:fragment="customJS">
+		$(function() { setActive(["admin", "adminCourse"]); })
+	</script>
+</body>
+</html>
+
