@@ -11,7 +11,17 @@ public class LessonWord {
 	private String word;
 	
 	private String romanizedWord;
+	
+	private String meaning;
 
+	public LessonWord() {}
+	
+	public LessonWord(String word, String romanizedWord, String meaning) {
+		this.word = word;
+		this.romanizedWord = romanizedWord;
+		this.setMeaning(meaning);
+	}
+	
 	public String getId() {
 		return id;
 	}
@@ -34,5 +44,13 @@ public class LessonWord {
 
 	public void setRomanizedWord(String romanizedWord) {
 		this.romanizedWord = romanizedWord;
+	}
+
+	public String getMeaning() {
+		return meaning;
+	}
+
+	public void setMeaning(String meaning) {
+		this.meaning = meaning;
 	}
 }

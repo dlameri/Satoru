@@ -1,6 +1,7 @@
 package com.satoru.config.initializer;
 
 import java.util.Arrays;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 
@@ -9,10 +10,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.satoru.domain.Course;
+import com.satoru.domain.Lesson;
+import com.satoru.domain.LessonWord;
 import com.satoru.domain.Role;
 import com.satoru.domain.User;
 import com.satoru.domain.UserStatus;
 import com.satoru.service.CourseService;
+import com.satoru.service.LessonService;
 import com.satoru.service.RoleService;
 import com.satoru.service.UserService;
 
@@ -23,9 +27,26 @@ public abstract class DataInitializer {
 	@Autowired private UserService userService;
 	@Autowired private RoleService roleService;
 	@Autowired private CourseService courseService;
+	@Autowired private LessonService lessonService;
 	
 	@PostConstruct
 	public abstract void init();
+		
+	protected Lesson createLessonIfNotExist(Course course, String name, String description, List<LessonWord> lessonWords) {
+		Lesson lesson = lessonService.findByNameAndCourse(name, course);
+		
+		if (lesson == null) {
+			lesson = new Lesson();
+			lesson.setName(name);
+			lesson.setDescription(description);
+			lesson.setLessonWords(lessonWords);
+			lesson.setCourse(course);
+			
+			lessonService.save(lesson);
+		}
+		
+		return lesson;
+	}
 		
 	protected Course createCourseIfNotExist(String name, String description) {
 		Course course = courseService.findByName(name);

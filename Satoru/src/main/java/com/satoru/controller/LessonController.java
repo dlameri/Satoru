@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.satoru.annotation.Layout;
-import com.satoru.domain.Course;
 import com.satoru.domain.Lesson;
 import com.satoru.service.CourseService;
 import com.satoru.service.LessonService;
@@ -27,7 +26,7 @@ public class LessonController {
 
 	@GetMapping
 	public String list(Model model, @PathVariable("courseId") String courseId) {
-		model.addAttribute("models", courseService.findOne(courseId).getLessons());
+		model.addAttribute("models", lessonService.findByCourse(courseService.findOne(courseId)));
 
 		return "lesson/list";
 	}
@@ -36,6 +35,7 @@ public class LessonController {
 	public String creationForm(Model model, @PathVariable("courseId") String courseId) {
 		model.addAttribute("title", "Criação");
 		model.addAttribute("model", new Lesson());
+		model.addAttribute("courseId", courseId);
 
 		return "lesson/form";
 	}
@@ -44,6 +44,7 @@ public class LessonController {
 	public String editForm(Model model, @PathVariable("id") String id, @PathVariable("courseId") String courseId) {
 		model.addAttribute("title", "Edição");
 		model.addAttribute("model", lessonService.findOne(id));
+		model.addAttribute("courseId", courseId);
 
 		return "lesson/form";
 	}
@@ -55,15 +56,11 @@ public class LessonController {
 		return "redirect:/course/" + courseId + "/lesson";
 	}
 
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	@RequestMapping(value = {"/save", "/edit/save"}, method = RequestMethod.POST)
 	public String processForm(@ModelAttribute(value = "model") Lesson lesson, @PathVariable("courseId") String courseId) {
-		Course course = courseService.findOne(courseId);
-		lesson.setCourse(course);
+		lesson.setCourse(courseService.findOne(courseId));
 		
 		lessonService.save(lesson);
-		
-		course.addLesson(lesson);
-		courseService.save(course);
 		
 		return "redirect:/course/" + courseId + "/lesson";
 	}

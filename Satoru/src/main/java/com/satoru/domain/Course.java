@@ -1,12 +1,8 @@
 package com.satoru.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -18,9 +14,6 @@ public class Course {
 	private String name;
 	
 	private String description;
-	
-	@DBRef
-	private List<Lesson> lessons;
 
 	public String getName() {
 		return name;
@@ -48,21 +41,5 @@ public class Course {
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public List<Lesson> getLessons() {
-		return lessons;
-	}
-
-	public void setLessons(List<Lesson> lessons) {
-		this.lessons = lessons;
-	}
-
-	public void addLesson(Lesson lesson) {
-		if (lessons == null) {
-			lessons = new ArrayList<>();
-		}
-
-		lessons.add(lesson);
 	}
 }

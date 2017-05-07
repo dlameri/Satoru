@@ -1,5 +1,7 @@
 package com.satoru.config.initializer;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataAccessException;
@@ -11,6 +13,8 @@ import org.springframework.util.Assert;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoException;
+import com.satoru.domain.Course;
+import com.satoru.domain.LessonWord;
 import com.satoru.domain.Role;
 
 @Component
@@ -29,8 +33,22 @@ public class DevelopmentDataInitializer extends DataInitializer{
 		createUserIfNotExists("Dimitri","Lameri","admin@admin.com","admin", user, admin);
 		createUserIfNotExists("Jéssica","Lameri","user@user.com","user", user);
 
-		createCourseIfNotExist("Hiragana", "Curso de Hiragana");
+		Course hiragana = createCourseIfNotExist("Hiragana", "Curso de Hiragana");
 		createCourseIfNotExist("Katakana", "Curso de Katakana");
+				
+		createLessonIfNotExist(hiragana, "Lição 1", "Pronomes pessoais", Arrays.asList(
+				new LessonWord("わたし", "wa-ta-shi", "Eu (formal masculino, normal feminino)"),
+				new LessonWord("ぼく", "bo-ku", "Eu (normal masculino)"),
+				new LessonWord("かれ", "ka-re", "Ele"),
+				new LessonWord("かのじょ", "ka-no-jyo", "Ela"),
+				new LessonWord("あなた", "a-na-ta", "Você")
+		));
+		
+		createLessonIfNotExist(hiragana, "Lição 2", "Palavras simples", Arrays.asList(				
+				new LessonWord("ありがとう", "a-ri-ga-to-u", "Obrigado"),
+				new LessonWord("こんにちは", "ko-n-ni-chi-wa", "Hello"),
+				new LessonWord("さよなら", "sa-yo-na-ra", "Hello")
+		));
 	}
 	
 	private void cleanUp() {
