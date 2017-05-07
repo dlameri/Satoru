@@ -23,7 +23,7 @@
 						<span class="fa arrow"></span>
 					</a>
 					<ul class="nav nav-second-level">
-						<li th:each="course : ${courses}"><a th:href="@{/study/course(id=${course.id})}" th:text="${course.name}"></a></li>
+						<li th:id="${course.name}" th:each="course : ${courses}"><a th:href="@{/study/course/{id}(id=${course.id})}" th:text="${course.name}"></a></li>
 					</ul>
 				</li>
 				<li id="review" sec:authorize="hasRole('ROLE_USER')">

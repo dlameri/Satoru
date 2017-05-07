@@ -36,7 +36,7 @@ public class User implements UserDetails {
 	private Boolean enabled = false;
 	
 	@DBRef
-	private List<Role> roles = new ArrayList<Role>();	
+	private List<Role> roles = new ArrayList<Role>();
 
 	public String getId() {
 		return id;
