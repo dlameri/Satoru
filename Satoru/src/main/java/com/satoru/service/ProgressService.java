@@ -5,6 +5,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.satoru.domain.Course;
+import com.satoru.domain.Lesson;
 import com.satoru.domain.User;
 import com.satoru.domain.Progress;
 import com.satoru.repository.ProgressRepository;
@@ -23,5 +24,12 @@ public class ProgressService extends GenericService<Progress, String, ProgressRe
 		}
 		
 		return progress;
+	}
+
+	public void increment(User loggedUser, Lesson lesson) {
+		Progress progress = findByUserAndCourse(loggedUser, lesson.getCourse());
+		progress.increment(lesson);
+		
+		save(progress);
 	}
 }

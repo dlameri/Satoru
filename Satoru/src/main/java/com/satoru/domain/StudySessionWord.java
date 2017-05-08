@@ -1,32 +1,21 @@
 package com.satoru.domain;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.annotation.Transient;
 
-@Document
 public class StudySessionWord {
-	private static Integer MAX_STUDIES = 3;
-	@Id
-	private String id;
+	public static Integer MAX_STUDIES = 1;
 	
-	@DBRef
 	private LessonWord lessonWord;
 	
 	private Integer quantity = 0;
 	
+	@Transient
+	private String answer;
 	
+	public StudySessionWord() {}
 
 	public StudySessionWord(LessonWord lessonWord) {
 		this.lessonWord = lessonWord;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public LessonWord getLessonWord() {
@@ -59,5 +48,21 @@ public class StudySessionWord {
 	
 	public Integer getMaxStudies() {
 		return MAX_STUDIES;
+	}
+
+	public String getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
+
+	public boolean answerIsRight() {
+		return lessonWord.getRomanizedWord().equals(answer);
+	}
+
+	public void increment() {
+		this.quantity++;
 	}
 }

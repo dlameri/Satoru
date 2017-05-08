@@ -56,4 +56,10 @@ public class Progress {
 	public void setCurrentOrder(Integer currentOrder) {
 		this.currentOrder = currentOrder;
 	}
+	
+	public void increment(Lesson lesson) {
+		if (lesson.getOrder() == currentOrder) {
+			this.currentOrder++;
+		}
+	}
 }

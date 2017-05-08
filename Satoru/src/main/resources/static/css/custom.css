@@ -118,3 +118,8 @@
     padding: 20px;
     position: relative;
 }
+
+.btn-cheat {
+	background-color:#8fccc1;
+	color: #fff !important;
+}

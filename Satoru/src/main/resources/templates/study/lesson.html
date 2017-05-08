@@ -2,35 +2,77 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org" lang="pt-br">
 <body>
-	<h2 th:fragment="title" th:text="${courseName + ' - ' + lessonName}">Título</h2>
+	<h2 th:fragment="title" th:text="${courseName + ' - Lição ' + lesson.order + ': '+ lesson.name}">Título</h2>	
 	<div class="wrapper wrapper-content" th:fragment="content">
-		<div class="row">			
-            <div class="ibox">
-                <div class="ibox-content lesson-box">
-                    <div class="lesson-word" th:text="${model.lessonWord.word}">Palavra em Japonês</div>
-                    <div class="lesson-desc">
-                        <span class="lesson-progress" th:text="${model.quantity + '/' + model.maxStudies}">1/1</span>
-                        <small class="text-muted" th:text="${'Tradução: ' +  model.lessonWord.meaning}">Significado</small>                        
-                        
-                        <div class="m-t form-group">
-                        	<div class="col-sm-4">
-                            	<a href="#" class="btn btn-block btn-outline btn-primary">Opção 1</a>
-                            </div>
-                            <div class="col-sm-4">
-                            	<a href="#" class="btn btn-block btn-outline btn-primary">Opção 2</a>
-                            </div>
-                            <div class="col-sm-4">
-                            	<a href="#" class="btn btn-block btn-outline btn-primary">Opção 3</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>            
-		</div>
-	</div>
+		<form method="post" class="form-horizontal" th:object="${model}" th:action="@{/study/lesson/__${lesson.id}__/answer}">			
+			<input type="hidden" th:field="*{lessonWord.id}"></input>
+			<input type="hidden" th:field="*{lessonWord.romanizedWord}"></input>
+			<input type="hidden" th:field="*{lessonWord.word}"></input>
+			<input type="hidden" th:field="*{lessonWord.meaning}"></input>
+			
+			<div class="row">			
+	            <div class="ibox">
+	                <div class="ibox-content lesson-box">
+	                	<div>
+		                    <div class="lesson-word" th:text="${model.lessonWord.word}">Palavra em Japonês</div>
+		                    <div class="lesson-desc">
+		                        <span class="lesson-progress" th:text="${model.quantity + '/' + model.maxStudies}">1/1</span>
+		                        <small class="text-muted" th:text="${'Tradução: ' +  model.lessonWord.meaning}">Significado</small>                        
+		                        
+		                        <div class="m-t form-group clearfix" data-toggle="buttons">
+		                         	<div class="col-xs-12 col-md-4" th:each="option: ${options}">
+		                        		<label th:if="${model.firstTime and option.right}" class="btn btn-block btn-outline btn-primary btn-lg btn-choices btn-cheat">
+		                            		<input type="radio" th:field="*{answer}" class="choice hidden" th:value="${option.answer}" th:attr="data-right=${option.right}"></input>
+		                            		<span th:text="${option.answer}"></span>
+		                            	</label>
+		                            	<label th:unless="${model.firstTime and option.right}" class="btn btn-block btn-outline btn-primary btn-lg btn-choices">
+		                            		<input type="radio" th:field="*{answer}" class="choice hidden" th:value="${option.answer}" th:attr="data-right=${option.right}"></input>
+		                            		<span th:text="${option.answer}"></span>
+		                            	</label>
+									</div>
+		                        </div>
+		                    </div>
+	                    </div>
+	                    <div>
+	                        <div class="hr-line-dashed"></div>
+	                        <div class="form-group" style="padding:20px">
+	                        	<div class="col-sm-8">
+									<div class="progress">
+									  <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" th:attr="aria-valuenow=${studySession.studiedPercentage}" th:style="${'width: ' + studySession.studiedPercentage + '%'}">
+									    <span class="sr-only" th:text="${studySession.studiedPercentage + ' % concluido'}"></span>
+									  </div>
+									</div>
+								</div>
+	                        	<div class="col-sm-4">
+									<button class="btn btn-primary pull-right" type="button" id="next">Próximo</button>
+								</div>
+							</div>		
+	                    </div>
+	                </div>
+	            </div>            
+			</div>
+		</form>
+	</div>	
 	<script th:fragment="customJS" th:inline="javascript">
 		/*<![CDATA[*/
-		$(function() { setActive(["course", [[${courseName}]]]); })
+		$(function() { 
+			setActive(["course", [[${courseName}]]]);
+			
+			$("#next").click(function() {
+				if ($(".choice:checked").length > 0) {
+					if ($(".choice:checked").attr("data-right") == 'true') {
+						$(".choice:checked").parent().parent().effect("pulsate", { times:3 }, 2000, function() {
+							$("form").submit();
+						});
+					} else {
+						$(".choice:checked").parent().removeClass("btn-primary").addClass("btn-danger");
+						$(".choice[data-right=true]").parent().parent().effect("pulsate", { times:3 }, 2000, function() {
+							$("form").submit();
+						});
+					}
+				}
+			});
+		});		
 		/*]]>*/
 	</script>
 </body>
