@@ -10,7 +10,7 @@ import com.satoru.repository.UserRepository;
 @Service
 public class UserService extends GenericService<User, String, UserRepository>{
 
-	@Autowired private PasswordEncoder encoder;
+	private PasswordEncoder encoder;
 	
 	public User save(User user) {
 		if (user.getId() == null) {
@@ -23,7 +23,12 @@ public class UserService extends GenericService<User, String, UserRepository>{
 		} 
 		
 		return super.save(user);
-	}	
+	}
+	
+	@Autowired 
+	public void setEncoder(PasswordEncoder encoder) {
+		this.encoder = encoder;
+	}
 	
 	public User getByEmail(String email) {
 		return getRepository().findByEmail(email);
