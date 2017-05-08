@@ -22,6 +22,7 @@ public class CourseMenuInterceptor extends HandlerInterceptorAdapter {
         }
 
         String originalViewName = modelAndView.getViewName();
+        System.out.println(originalViewName);
         if (originalViewName.contains("layout/default")) {
         	modelAndView.addObject("courses", courseService.listAll());
         }
