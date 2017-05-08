@@ -52,4 +52,12 @@ public class StudySessionWord {
 	public boolean isLastSession() {
 		return quantity == MAX_STUDIES - 1;
 	}
+	
+	public boolean isFirstTime() {
+		return quantity == 0;
+	}
+	
+	public Integer getMaxStudies() {
+		return MAX_STUDIES;
+	}
 }

@@ -2,29 +2,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org" lang="pt-br">
 <body>
-	<h2 th:fragment="title" th:text="${title}">Título</h2>
+	<h2 th:fragment="title" th:text="${courseName + ' - ' + lessonName}">Título</h2>
 	<div class="wrapper wrapper-content" th:fragment="content">
-		<div class="row">
-			<div th:each="model, stat : ${models}" class="col-md-3">
-                <div class="ibox">
-                    <div class="ibox-content">
-                        <div>
-                        	<small class="text-muted" th:text="${'Lição ' + model.order}">Lição</small>
-                            <span class="lesson-name" th:text="${model.name}">Nome</span>
-                            <div class="small m-t-xs" th:text="${model.description}">Descrição</div>
-                            <div th:if="${model.order == progress.currentOrder}" class="m-t text-righ">
-                                <a href="#" class="btn btn-xs btn-outline btn-primary">Aprender <i class="fa fa-long-arrow-right"></i> </a>
+		<div class="row">			
+            <div class="ibox">
+                <div class="ibox-content lesson-box">
+                    <div class="lesson-word" th:text="${model.lessonWord.word}">Palavra em Japonês</div>
+                    <div class="lesson-desc">
+                        <span class="lesson-progress" th:text="${model.quantity + '/' + model.maxStudies}">1/1</span>
+                        <small class="text-muted" th:text="${'Tradução: ' +  model.lessonWord.meaning}">Significado</small>                        
+                        
+                        <div class="m-t form-group">
+                        	<div class="col-sm-4">
+                            	<a href="#" class="btn btn-block btn-outline btn-primary">Opção 1</a>
                             </div>
-                            <div th:if="${model.order &lt; progress.currentOrder}" class="m-t text-righ">
-                                <a href="#" class="btn btn-xs btn-outline btn-warning">Relembrar <i class="fa fa-long-arrow-right"></i> </a>
+                            <div class="col-sm-4">
+                            	<a href="#" class="btn btn-block btn-outline btn-primary">Opção 2</a>
                             </div>
-                            <div th:if="${model.order &gt; progress.currentOrder}" class="m-t text-righ">
-                                <a onclick="return false;" class="btn btn-xs btn-outline btn-white">Bloqueado <i class="fa fa-long-arrow-right"></i> </a>
+                            <div class="col-sm-4">
+                            	<a href="#" class="btn btn-block btn-outline btn-primary">Opção 3</a>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>	
+            </div>            
 		</div>
 	</div>
 	<script th:fragment="customJS" th:inline="javascript">

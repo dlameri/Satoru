@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.satoru.annotation.Layout;
 import com.satoru.domain.Course;
 import com.satoru.domain.Lesson;
+import com.satoru.domain.StudySession;
 import com.satoru.domain.User;
 import com.satoru.service.CourseService;
 import com.satoru.service.LessonService;
@@ -45,13 +46,15 @@ public class StudyController {
 		return "study/lessonList";
 	}
 	
-	@GetMapping("/course/{id}/lesson/{lessonId}")
-	public String studyLesson(Model model, @PathVariable("courseId") String courseId, @PathVariable("lessonId") String lessonId) {
-		Course course = courseService.findOne(courseId);
+	@GetMapping("/lesson/{lessonId}")
+	public String studyLesson(Model model, @PathVariable("lessonId") String lessonId) {		
 		Lesson lesson = lessonService.findOne(lessonId);
+		StudySession studySession = studySessionService.findByUserAndLesson(getLoggedUser(), lesson);
 		
-		model.addAttribute("courseName", course.getName());
-		model.addAttribute("model", studySessionService.findByUserAndLesson(getLoggedUser(), lesson));
+		model.addAttribute("courseName", lesson.getCourse().getName());
+		model.addAttribute("lessonName", lesson.getName());
+		model.addAttribute("studySession", studySession);
+		model.addAttribute("model", studySession.getNextWord());
 
 		return "study/lesson";
 	}
