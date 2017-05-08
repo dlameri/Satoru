@@ -1,6 +1,7 @@
 package com.satoru.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +11,7 @@ import com.satoru.repository.UserRepository;
 @Service
 public class UserService extends GenericService<User, String, UserRepository>{
 
-	private PasswordEncoder encoder;
+	@Autowired @Lazy private PasswordEncoder encoder;
 	
 	public User save(User user) {
 		if (user.getId() == null) {
@@ -23,11 +24,6 @@ public class UserService extends GenericService<User, String, UserRepository>{
 		} 
 		
 		return super.save(user);
-	}
-	
-	@Autowired 
-	public void setEncoder(PasswordEncoder encoder) {
-		this.encoder = encoder;
 	}
 	
 	public User getByEmail(String email) {
