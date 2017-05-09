@@ -1,7 +1,6 @@
 package com.satoru.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +14,6 @@ import com.satoru.domain.Course;
 import com.satoru.domain.Lesson;
 import com.satoru.domain.StudySession;
 import com.satoru.domain.StudySessionWord;
-import com.satoru.domain.User;
 import com.satoru.service.CourseService;
 import com.satoru.service.LessonService;
 import com.satoru.service.ProgressService;
@@ -24,7 +22,7 @@ import com.satoru.service.StudySessionService;
 @Controller
 @RequestMapping("/study")
 @Layout(value = Layout.DEFAULT)
-public class StudyController {
+public class StudyController extends GenericController {
 
 	@Autowired
 	private CourseService courseService;
@@ -66,30 +64,14 @@ public class StudyController {
 	
 	@RequestMapping(value = {"/lesson/{lessonId}/answer"}, method = RequestMethod.POST)
 	public String processForm(@ModelAttribute(value = "model") StudySessionWord studySessionWord, @PathVariable("lessonId") String lessonId) {
-		if (! studySessionWord.answerIsRight()) {
-			return "redirect:/study/lesson/" + lessonId;
-		}
-		
 		Lesson lesson = lessonService.findOne(lessonId);
-		StudySession studySession = studySessionService.findByUserAndLesson(getLoggedUser(), lesson);
 		
-		studySession.increment(studySessionWord);
+		Boolean hasFinished = studySessionService.processAnswerAndCheckFinish(getLoggedUser(), lesson, studySessionWord);
 		
-		if (! studySession.hasFinished()) {
-			studySessionService.save(studySession);
-			
-			return "redirect:/study/lesson/" + lessonId;
+		if (! hasFinished) {
+			return "redirect:/study/lesson/" + lesson.getId();
+		} else {
+			return "redirect:/study/course/" + lesson.getCourse().getId();
 		}
-		
-		//salva pra review
-		studySessionService.delete(studySession);
-		
-		progressService.increment(getLoggedUser(), lesson);
-		
-		return "redirect:/study/course/" + lesson.getCourse().getId();
-	}
-
-	private User getLoggedUser() {
-		return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	}
 }

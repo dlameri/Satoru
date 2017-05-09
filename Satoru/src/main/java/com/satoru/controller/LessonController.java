@@ -17,7 +17,7 @@ import com.satoru.service.LessonService;
 @Controller
 @RequestMapping("/course/{courseId}/lesson")
 @Layout(value = Layout.DEFAULT)
-public class LessonController {
+public class LessonController extends GenericController {
 	@Autowired
 	private CourseService courseService;
 	

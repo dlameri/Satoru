@@ -1,16 +1,25 @@
 package com.satoru.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.satoru.domain.Lesson;
 import com.satoru.domain.StudySession;
+import com.satoru.domain.StudySessionWord;
 import com.satoru.domain.User;
 import com.satoru.repository.StudySessionRepository;
 
 @Service
 public class StudySessionService extends GenericService<StudySession, String, StudySessionRepository>{
+	
+	@Autowired
+	private ProgressService progressService;
+	
+	@Autowired
+	private AuditService auditService;
+	
 	public StudySessionService() {
 		this.sort = new Sort(Direction.DESC, "name");
 	}
@@ -23,5 +32,28 @@ public class StudySessionService extends GenericService<StudySession, String, St
 		}
 		
 		return studySession; 
+	}
+
+	public Boolean processAnswerAndCheckFinish(User loggedUser, Lesson lesson, StudySessionWord studySessionWord) {
+		auditService.auditAnswer(loggedUser, studySessionWord.answerIsRight());
+		
+		if (studySessionWord.answerIsRight()) {
+			StudySession studySession = findByUserAndLesson(loggedUser, lesson);
+			
+			studySession.increment(studySessionWord);
+			
+			if (! studySession.hasFinished()) {
+				save(studySession);
+			} else {
+				//salva pra review
+				delete(studySession);
+				
+				progressService.increment(loggedUser, lesson);
+				
+				return true;
+			}
+		}
+		
+		return false;
 	}
 }

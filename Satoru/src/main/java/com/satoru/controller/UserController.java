@@ -17,7 +17,7 @@ import com.satoru.service.UserService;
 
 @Controller
 @Layout(value=Layout.NONE)
-public class UserController {
+public class UserController extends GenericController {
 	
 	@Autowired
 	private UserService userService;

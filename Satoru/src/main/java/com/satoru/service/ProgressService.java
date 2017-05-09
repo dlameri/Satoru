@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.satoru.domain.Course;
 import com.satoru.domain.Lesson;
-import com.satoru.domain.User;
 import com.satoru.domain.Progress;
+import com.satoru.domain.User;
 import com.satoru.repository.ProgressRepository;
 
 @Service
