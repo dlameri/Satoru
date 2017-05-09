@@ -11,26 +11,20 @@
 						<h5 th:text="${title}">Título</h5>
 					</div>
 					<div class="ibox-content">
-						<form method="post" class="form-horizontal" th:object="${model}" th:action="@{/lessonWord/save}">
+						<form method="post" class="form-horizontal" th:object="${model}" th:action="@{/lessonWord/link/save}">
 							<input type="hidden" th:unless="${model.id == null}" th:field="*{id}"></input>
 							<div class="form-group">
-								<label class="col-sm-2 control-label">Expressão em Japonês</label>
-								<div class="col-sm-10">
-									<input type="text" th:field="*{word}" class="form-control"></input>
+								<label class="col-sm-2 control-label">Conteúdo associado</label>
+								<div class="col-sm-10">									
+									<select multiple="multiple" name="reviewLinks" id="reviewLinks" class="multiple-select form-control">
+										<option></option>									
+							            <option th:each="word : ${lessonWords}" 
+							                    th:selected="${model.reviewLinks.contains(word)}"
+							                    th:value="${word.id}"
+							                    th:text="${word.romanizedWord}">Part name</option>
+							        </select>
 								</div>
 							</div>
-							<div class="form-group">
-								<label class="col-sm-2 control-label">Expressão Romanizada</label>
-								<div class="col-sm-10">
-									<input type="text" th:field="*{romanizedWord}" class="form-control"></input>
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-2 control-label">Significado</label>
-								<div class="col-sm-10">
-									<input type="text" th:field="*{meaning}" class="form-control"></input>
-								</div>
-							</div>							
 							<div class="hr-line-dashed"></div>
 							<div class="form-group">
 								<div class="col-sm-4 col-sm-offset-2">
@@ -45,8 +39,13 @@
 		</div>
 	</div>
 	<script th:fragment="customJS">
+	
 		$(function() { 			
 			setActive(["admin", "adminLessonWord"]);
+			
+			$(".multiple-select").select2({
+				placeholder: "Selecione uma palavra",
+			});
 		});
 	</script>
 </body>

@@ -30,7 +30,7 @@ public class CourseController extends GenericController {
 
 	@GetMapping("/new")
 	public String creationForm(Model model) {
-		model.addAttribute("title", "Criação de Curso");
+		model.addAttribute("title", "Criação");
 		model.addAttribute("model", new Course());
 
 		return "course/form";
@@ -39,7 +39,7 @@ public class CourseController extends GenericController {
 	@GetMapping("/edit/{id}")
 	public String editForm(Model model, @PathVariable("id") String id) {
 		Course course = courseService.findOne(id);
-		model.addAttribute("title", "Edição do Curso " +  course.getName());
+		model.addAttribute("title", "Edição do curso " +  course.getName());
 		model.addAttribute("model", course);
 
 		return "course/form";

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org" lang="pt-br">
 <body>
-	<h2 th:fragment="title">Conteúdos</h2>
+	<h2 th:fragment="title">Conteúdo</h2>
 	<div class="wrapper wrapper-content" th:fragment="content">
 		<div class="row">
 			<div class="col-lg-12">
@@ -36,7 +36,8 @@
 								    <tr th:each="model : ${models}">
 								    	<td th:text="${model.word}"></td>
 								    	<td th:text="${model.romanizedWord}"></td>
-								    	<td>								    	 
+								    	<td>
+								    		<a title="Associar conteúdo para revisão" th:href="@{/lessonWord/{id}/link(id=${model.id})}"><i class="fa fa-link fa-2 text-navy"></i></a>								    	 
 								    		<a title="Editar" th:href="@{lessonWord/edit/{id}(id=${model.id})}"><i class="fa fa-pencil fa-2 text-navy"></i></a>
 								    		<a title="Excluir" onclick="return confirm('Deseja realmente excluir este conteúdo?')" th:href="@{lessonWord/remove/{id}(id=${model.id})}"><i class="fa fa-times fa-2 text-navy"></i></a>
 							    		</td>

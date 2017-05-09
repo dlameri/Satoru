@@ -46,8 +46,9 @@ public class LessonController extends GenericController {
 	
 	@GetMapping("/edit/{id}")
 	public String editForm(Model model, @PathVariable("id") String id, @PathVariable("courseId") String courseId) {
-		model.addAttribute("title", "Edição");
-		model.addAttribute("model", lessonService.findOne(id));
+		Lesson lesson = lessonService.findOne(id);
+		model.addAttribute("title", "Edição da lição " + lesson.getName());
+		model.addAttribute("model", lesson);
 		model.addAttribute("courseId", courseId);
 
 		return "lesson/form";
