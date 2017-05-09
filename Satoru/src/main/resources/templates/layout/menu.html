@@ -30,7 +30,7 @@
 					<a href="mailbox.html">
 						<i class="fa fa-signal"></i> 
 						<span class="nav-label">Revisões</span>
-						<span class="label label-warning pull-right">19</span>
+						<span th:unless="${reviewQuantity == 0}" class="label label-warning pull-right" th:text="${reviewQuantity}">Quantidade de Reviews</span>
 					</a>
 				</li>
 				<li id="admin" sec:authorize="hasRole('ROLE_ADMIN')">

@@ -61,12 +61,12 @@
 			$("#next").click(function() {
 				if ($(".choice:checked").length > 0) {
 					if ($(".choice:checked").attr("data-right") == 'true') {
-						$(".choice:checked").parent().parent().effect("pulsate", { times:3 }, 2000, function() {
+						$(".choice:checked").parent().parent().effect("pulsate", { times:2 }, 1500, function() {
 							$("form").submit();
 						});
 					} else {
 						$(".choice:checked").parent().removeClass("btn-primary").addClass("btn-danger");
-						$(".choice[data-right=true]").parent().parent().effect("pulsate", { times:3 }, 2000, function() {
+						$(".choice[data-right=true]").parent().parent().effect("pulsate", { times:2 }, 1500, function() {
 							$("form").submit();
 						});
 					}

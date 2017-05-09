@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.satoru.interceptor.CourseMenuInterceptor;
+import com.satoru.interceptor.MenuInterceptor;
 import com.satoru.interceptor.ThymeleafLayoutInterceptor;
 
 @Configuration
@@ -20,7 +20,7 @@ public class MVCConfig extends WebMvcConfigurerAdapter {
 	@Autowired private List<HandlerInterceptorAdapter> customInterceptors;
 	
 	@Bean
-	public List<HandlerInterceptorAdapter> customInterceptors(ThymeleafLayoutInterceptor thymeleafLayoutInterceptor, CourseMenuInterceptor courseMenuInterceptor) {
+	public List<HandlerInterceptorAdapter> customInterceptors(ThymeleafLayoutInterceptor thymeleafLayoutInterceptor, MenuInterceptor courseMenuInterceptor) {
 		return Arrays.asList(
 			courseMenuInterceptor,
 			thymeleafLayoutInterceptor			

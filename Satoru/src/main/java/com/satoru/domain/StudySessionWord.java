@@ -1,10 +1,12 @@
 package com.satoru.domain;
 
 import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 public class StudySessionWord {
 	public static Integer MAX_STUDIES = 1;
 	
+	@DBRef
 	private LessonWord lessonWord;
 	
 	private Integer quantity = 0;

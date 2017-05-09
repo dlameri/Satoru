@@ -4,16 +4,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.satoru.domain.User;
 import com.satoru.service.CourseService;
+import com.satoru.service.ReviewWordService;
 
 @Component
-public class CourseMenuInterceptor extends HandlerInterceptorAdapter {
+public class MenuInterceptor extends HandlerInterceptorAdapter {
 	
 	@Autowired private CourseService courseService;
+	@Autowired private ReviewWordService reviewWordService;
 	
 	@Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
@@ -26,6 +30,13 @@ public class CourseMenuInterceptor extends HandlerInterceptorAdapter {
 
         if (originalViewName.contains("layout/default")) {
         	modelAndView.addObject("courses", courseService.listAll());
+        	modelAndView.addObject("reviewQuantity", reviewWordService.getReviewQuantity(getLoggedUser()));
         }
     }
+	
+	protected User getLoggedUser() {
+		return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	}
+	
+	
 }

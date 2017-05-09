@@ -18,6 +18,7 @@ public class Lesson {
 	
 	private Integer order;
 	
+	@DBRef
 	private List<LessonWord> lessonWords = new ArrayList<>();
 	
 	@DBRef

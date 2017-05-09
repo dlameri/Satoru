@@ -3,6 +3,7 @@ package com.satoru.domain;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -13,6 +14,7 @@ public class ReviewWord extends LessonWord {
 	
 	private Integer repetitions = 1;
 	
+	@DBRef
 	private User user;
 
 	public ReviewWord(User user, LessonWord lessonWord) {

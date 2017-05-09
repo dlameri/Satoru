@@ -1,6 +1,7 @@
 package com.satoru.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Sort;
@@ -22,14 +23,8 @@ public class ReviewWordService extends GenericService<ReviewWord, String, Review
 	public void saveLessonForReview(User user, Lesson lesson) {
 		findAllLessonWords(lesson)
 			.stream()
-			.map(l -> (ReviewWord) l)
+			.map(l -> new ReviewWord(user, l))
 			.forEach(r -> {
-				r.setId(null);
-				r.setLastReview(null);
-				r.setRepetitions(0);
-				r.scheduleReview();
-				r.setUser(user);
-				
 				save(r);
 			});
 	}
@@ -56,5 +51,9 @@ public class ReviewWordService extends GenericService<ReviewWord, String, Review
 		}
 		
 		return lessonWordsToReview; 
+	}
+
+	public Integer getReviewQuantity(User user) {
+		return getRepository().countByUserAndNextReviewLessThan(user, new Date());
 	}
 }
