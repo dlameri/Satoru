@@ -36,7 +36,8 @@
 								    <tr th:each="model : ${models}">
 								    	<td th:text="${model.name}"></td>
 								    	<td th:text="${model.description}"></td>
-								    	<td>								    	 
+								    	<td>
+								    		<a title="Associar conteúdo" th:href="@{lesson/{id}/link(id=${model.id})}"><i class="fa fa-link fa-2 text-navy"></i></a>								    	 
 								    		<a title="Editar" th:href="@{lesson/edit/{id}(id=${model.id})}"><i class="fa fa-pencil fa-2 text-navy"></i></a>
 								    		<a title="Excluir" onclick="return confirm('Deseja realmente excluir esta lição?')" th:href="@{lesson/remove/{id}(id=${model.id})}"><i class="fa fa-times fa-2 text-navy"></i></a>
 							    		</td>

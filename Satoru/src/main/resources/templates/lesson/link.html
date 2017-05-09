@@ -11,26 +11,20 @@
 						<h5 th:text="${title}">Título</h5>
 					</div>
 					<div class="ibox-content">
-						<form method="post" class="form-horizontal" th:object="${model}" th:action="@{/course/__${course.id}__/lesson/save}">
+						<form method="post" class="form-horizontal" th:object="${model}" th:action="@{/course/__${course.id}__/lesson/link/save}">
 							<input type="hidden" th:unless="${model.id == null}" th:field="*{id}"></input>
 							<div class="form-group">
-								<label class="col-sm-2 control-label">Nome</label>
-								<div class="col-sm-10">
-									<input type="text" th:field="*{name}" class="form-control"></input>
+								<label class="col-sm-2 control-label">Conteúdo associado</label>
+								<div class="col-sm-10">									
+									<select multiple="multiple" name="lessonWords" id="lessonWords" class="multiple-select form-control">
+										<option></option>									
+							            <option th:each="word : ${lessonWords}" 
+							                    th:selected="${model.lessonWords.contains(word)}"
+							                    th:value="${word.id}"
+							                    th:text="${word.romanizedWord}">Part name</option>
+							        </select>
 								</div>
 							</div>
-							<div class="form-group">
-								<label class="col-sm-2 control-label">Descrição</label>
-								<div class="col-sm-10">
-									<input type="text" th:field="*{description}" class="form-control"></input>
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-2 control-label">Ordem</label>
-								<div class="col-sm-10">
-									<input type="text" th:field="*{order}" class="form-control"></input>
-								</div>
-							</div>							
 							<div class="hr-line-dashed"></div>
 							<div class="form-group">
 								<div class="col-sm-4 col-sm-offset-2">
@@ -45,8 +39,13 @@
 		</div>
 	</div>
 	<script th:fragment="customJS">
+	
 		$(function() { 			
 			setActive(["admin", "adminCourse"]);
+			
+			$(".multiple-select").select2({
+				placeholder: "Selecione uma palavra",
+			});
 		});
 	</script>
 </body>
