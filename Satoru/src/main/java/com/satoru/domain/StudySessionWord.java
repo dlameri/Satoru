@@ -3,7 +3,7 @@ package com.satoru.domain;
 import org.springframework.data.annotation.Transient;
 
 public class StudySessionWord {
-	public static Integer MAX_STUDIES = 5;
+	public static Integer MAX_STUDIES = 1;
 	
 	private LessonWord lessonWord;
 	

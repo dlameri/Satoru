@@ -20,6 +20,9 @@ public class StudySessionService extends GenericService<StudySession, String, St
 	@Autowired
 	private AuditService auditService;
 	
+	@Autowired
+	private ReviewWordService reviewWordService;
+	
 	public StudySessionService() {
 		this.sort = new Sort(Direction.DESC, "name");
 	}
@@ -45,7 +48,7 @@ public class StudySessionService extends GenericService<StudySession, String, St
 			if (! studySession.hasFinished()) {
 				save(studySession);
 			} else {
-				//salva pra review
+				reviewWordService.saveLessonForReview(loggedUser, lesson);
 				delete(studySession);
 				
 				progressService.increment(loggedUser, lesson);
