@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.satoru.annotation.Layout;
+import com.satoru.domain.Course;
 import com.satoru.domain.Lesson;
 import com.satoru.service.CourseService;
 import com.satoru.service.LessonService;
@@ -26,7 +27,10 @@ public class LessonController extends GenericController {
 
 	@GetMapping
 	public String list(Model model, @PathVariable("courseId") String courseId) {
-		model.addAttribute("models", lessonService.findByCourse(courseService.findOne(courseId)));
+		Course course = courseService.findOne(courseId);
+		
+		model.addAttribute("course", course);
+		model.addAttribute("models", lessonService.findByCourse(course));
 
 		return "lesson/list";
 	}
@@ -58,7 +62,13 @@ public class LessonController extends GenericController {
 
 	@RequestMapping(value = {"/save", "/edit/save"}, method = RequestMethod.POST)
 	public String processForm(@ModelAttribute(value = "model") Lesson lesson, @PathVariable("courseId") String courseId) {
+		if (lesson.getId() != null) {
+			Lesson original = lessonService.findOne(lesson.getId());
+			lesson.setLessonWords(original.getLessonWords());
+		}
+		
 		lesson.setCourse(courseService.findOne(courseId));
+		
 		
 		lessonService.save(lesson);
 		

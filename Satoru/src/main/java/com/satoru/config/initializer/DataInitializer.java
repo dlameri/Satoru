@@ -17,6 +17,7 @@ import com.satoru.domain.User;
 import com.satoru.domain.UserStatus;
 import com.satoru.service.CourseService;
 import com.satoru.service.LessonService;
+import com.satoru.service.LessonWordService;
 import com.satoru.service.RoleService;
 import com.satoru.service.UserService;
 
@@ -28,10 +29,27 @@ public abstract class DataInitializer {
 	@Autowired private RoleService roleService;
 	@Autowired private CourseService courseService;
 	@Autowired private LessonService lessonService;
+	@Autowired private LessonWordService lessonWordService;
 	
 	@PostConstruct
 	public abstract void init();
+	
+	protected LessonWord createLessonWordIfNotExist(String word, String romanizedWord, String meaning) {
+		LessonWord lessonWord = lessonWordService.findByWord(word);
 		
+		if (lessonWord == null) {
+			lessonWord = new LessonWord();
+			
+			lessonWord.setWord(word);
+			lessonWord.setRomanizedWord(romanizedWord);			
+			lessonWord.setMeaning(meaning);
+			
+			lessonWordService.save(lessonWord);
+		}
+		
+		return lessonWord;
+	}
+	
 	protected Lesson createLessonIfNotExist(Course course, Integer order, String name, String description, List<LessonWord> lessonWords) {
 		Lesson lesson = lessonService.findByNameAndCourse(name, course);
 		

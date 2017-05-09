@@ -11,30 +11,30 @@
 						<h5 th:text="${title}">Título</h5>
 					</div>
 					<div class="ibox-content">
-						<form method="post" class="form-horizontal" th:object="${model}" th:action="@{/course/__${courseId}__/lesson/save}">
+						<form method="post" class="form-horizontal" th:object="${model}" th:action="@{/lessonWord/save}">
 							<input type="hidden" th:unless="${model.id == null}" th:field="*{id}"></input>
 							<div class="form-group">
-								<label class="col-sm-2 control-label">Nome</label>
+								<label class="col-sm-2 control-label">Expressão em Japonês</label>
 								<div class="col-sm-10">
-									<input type="text" th:field="*{name}" class="form-control"></input>
+									<input type="text" th:field="*{word}" class="form-control"></input>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-2 control-label">Descrição</label>
+								<label class="col-sm-2 control-label">Expressão Romanizada</label>
 								<div class="col-sm-10">
-									<input type="text" th:field="*{description}" class="form-control"></input>
+									<input type="text" th:field="*{romanizedWord}" class="form-control"></input>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-2 control-label">Ordem</label>
+								<label class="col-sm-2 control-label">Significado</label>
 								<div class="col-sm-10">
-									<input type="text" th:field="*{order}" class="form-control"></input>
+									<input type="text" th:field="*{meaning}" class="form-control"></input>
 								</div>
 							</div>							
 							<div class="hr-line-dashed"></div>
 							<div class="form-group">
 								<div class="col-sm-4 col-sm-offset-2">
-									<a th:href="@{/course/__${courseId}__/lesson}" class="btn btn-white">Cancelar</a>
+									<a th:href="@{/lessonWord}" class="btn btn-white">Cancelar</a>
 									<button class="btn btn-primary" type="submit">Salvar</button>
 								</div>
 							</div>							
@@ -46,7 +46,7 @@
 	</div>
 	<script th:fragment="customJS">
 		$(function() { 			
-			setActive(["admin", "adminCourse"]);
+			setActive(["admin", "adminLessonWord"]);
 		});
 	</script>
 </body>

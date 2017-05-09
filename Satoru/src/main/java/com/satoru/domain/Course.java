@@ -32,11 +32,7 @@ public class Course {
 	}
 
 	public String getId() {
-		if (id != null && "".equals(id.trim())) {
-			return null;
-		}
-
-		return id;
+		return this.id;
 	}
 
 	public void setId(String id) {

@@ -39,10 +39,6 @@ public class Lesson {
 	}
 
 	public String getId() {
-		if (id != null && "".equals(id.trim())) {
-			return null;
-		}
-
 		return id;
 	}
 

@@ -12,7 +12,7 @@
 					</div>
 					<div class="ibox-content">
 						<form method="post" class="form-horizontal" th:object="${model}" th:action="@{/course/save}">
-							<input type="hidden" th:field="*{id}"></input>
+							<input type="hidden" th:unless="${model.id == null}" th:field="*{id}"></input>
 							<div class="form-group">
 								<label class="col-sm-2 control-label">Nome</label>
 								<div class="col-sm-10">

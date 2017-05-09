@@ -10,52 +10,52 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.satoru.annotation.Layout;
-import com.satoru.domain.Course;
-import com.satoru.service.CourseService;
+import com.satoru.domain.LessonWord;
+import com.satoru.service.LessonWordService;
 
 @Controller
-@RequestMapping("/course")
+@RequestMapping("/lessonWord")
 @Layout(value = Layout.DEFAULT)
-public class CourseController extends GenericController {
+public class LessonWordController extends GenericController {
 
 	@Autowired
-	private CourseService courseService;
+	private LessonWordService lessonWordService;
 	
 	@GetMapping
 	public String list(Model model) {
-		model.addAttribute("models", courseService.listAll());
+		model.addAttribute("models", lessonWordService.listAll());
 		
-		return "course/list";
+		return "lessonWord/list";
 	}
 
 	@GetMapping("/new")
 	public String creationForm(Model model) {
-		model.addAttribute("title", "Criação de Curso");
-		model.addAttribute("model", new Course());
+		model.addAttribute("title", "Criação de Conteúdo");
+		model.addAttribute("model", new LessonWord());
 
-		return "course/form";
+		return "lessonWord/form";
 	}
 	
 	@GetMapping("/edit/{id}")
 	public String editForm(Model model, @PathVariable("id") String id) {
-		Course course = courseService.findOne(id);
-		model.addAttribute("title", "Edição do Curso " +  course.getName());
-		model.addAttribute("model", course);
+		LessonWord lessonWord = lessonWordService.findOne(id);
+		model.addAttribute("title", "Edição do Conteúdo " + lessonWord.getWord());
+		model.addAttribute("model", lessonWord);
 
-		return "course/form";
+		return "lessonWord/form";
 	}
 	
 	@GetMapping("/remove/{id}")
 	public String remove(Model model, @PathVariable("id") String id) {
-		courseService.delete(courseService.findOne(id));
+		lessonWordService.delete(lessonWordService.findOne(id));
 		
-		return "redirect:/course";
+		return "redirect:/lessonWord";
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String processForm(@ModelAttribute(value = "model") Course course) {		
-		courseService.save(course);
+	public String processForm(@ModelAttribute(value = "model") LessonWord lessonWord) {		
+		lessonWordService.save(lessonWord);
 		
-		return "redirect:/course";
+		return "redirect:/lessonWord";
 	}
 }
