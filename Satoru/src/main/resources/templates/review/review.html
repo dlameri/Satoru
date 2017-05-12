@@ -17,7 +17,10 @@
 		                    <div class="lesson-word" th:text="${model.reviewWord.word}">Palavra em Japonês</div>
 		                    <div class="lesson-desc">
 		                        <span class="lesson-progress" th:text="${model.quantity + '/' + model.maxStudies}">1/1</span>
-		                        <small class="text-muted" th:text="${'Tradução: ' +  model.reviewWord.meaning}">Significado</small>                        
+		                        <a class="replay">
+		                        	<i class="fa fa-volume-up" aria-hidden="true"></i>
+		                        </a>
+		                        <small class="text-muted pull-right" th:text="${'Tradução: ' +  model.reviewWord.meaning}">Significado</small>
 		                        
 		                        <div class="m-t form-group clearfix" data-toggle="buttons">
 		                         	<div class="col-xs-12 col-md-4" th:each="option: ${options}">
@@ -68,6 +71,9 @@
 					}
 				}
 			});
+			$(".replay").click(function() {
+				speak($(".lesson-word").html());	
+			}).trigger("click");
 		});		
 		/*]]>*/
 	</script>

@@ -138,6 +138,14 @@
 			}
 		}
 		
+		function speak(word) {
+		     var u = new SpeechSynthesisUtterance();	     
+		     u.lang = 'ja';
+		     u.rate = 1;
+		     u.text = word;
+		     speechSynthesis.speak(u);
+		}		
+
 		$(function() {
 			$(".noReview").click(function(event) {
 				toastr['warning']("Nenhuma revisão disponível no momento");
