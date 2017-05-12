@@ -35,21 +35,17 @@ public class ReviewSessionService extends GenericService<ReviewSession, String, 
 
 	public Boolean processAnswerAndCheckFinish(User loggedUser, ReviewSessionWord sesionWord) {
 		auditService.auditReview(loggedUser, sesionWord.answerIsRight());
-		
-		if (sesionWord.answerIsRight()) {
-			ReviewSession studySession = findByUser(loggedUser);
+		ReviewSession reviewSession = findByUser(loggedUser);
 			
-			studySession.increment(sesionWord);
+		reviewSession.increment(sesionWord);
+		save(reviewSession);
 			
-			if (! studySession.hasFinished()) {
-				save(studySession);
-			} else {
-				reviewWordService.saveReviewedWords(loggedUser, studySession);
-				
-				delete(studySession);
+		if (reviewSession.hasFinished()) {
+			reviewWordService.saveReviewedWords(loggedUser, reviewSession);
+			
+			delete(reviewSession);
 
-				return true;
-			}
+			return true;
 		}
 
 		return false;

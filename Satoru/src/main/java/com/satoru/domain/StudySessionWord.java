@@ -10,6 +10,8 @@ public class StudySessionWord {
 	private LessonWord lessonWord;
 	
 	private Integer quantity = 0;
+		
+	private Integer errors = 0;
 	
 	@Transient
 	private String answer;
@@ -65,6 +67,10 @@ public class StudySessionWord {
 	}
 
 	public void increment() {
-		this.quantity++;
+		if (answerIsRight()) {
+			this.quantity++;
+		} else {
+			this.errors++;
+		}
 	}
 }
