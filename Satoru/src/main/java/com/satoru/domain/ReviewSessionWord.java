@@ -67,7 +67,15 @@ public class ReviewSessionWord {
 	}
 	
 	public Integer getQuality() {
-		return 3;
+		if (errors == 0) {
+			return 5;
+		} else if (errors < MAX_STUDIES/2) {
+			return 4;
+		} if (errors == MAX_STUDIES/2) {
+			return 3;
+		} else {
+			return 2;
+		}
 	}
 
 	public void increment() {
