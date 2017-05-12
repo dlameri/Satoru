@@ -56,4 +56,8 @@ public class ReviewWordService extends GenericService<ReviewWord, String, Review
 	public Integer getReviewQuantity(User user) {
 		return getRepository().countByUserAndNextReviewLessThan(user, new Date());
 	}
+	
+	public List<ReviewWord> getReviewWords(User user) {
+		return getRepository().findByUserAndNextReviewLessThan(user, new Date());
+	}
 }

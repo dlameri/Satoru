@@ -24,6 +24,8 @@ public class StudySession {
 	
 	private List<StudySessionWord> studied = new ArrayList<>();
 
+	public StudySession() {}
+	
 	public StudySession(User user, Lesson lesson) {
 		this.user = user;
 		this.lesson = lesson;
@@ -49,18 +51,18 @@ public class StudySession {
 			.get();
 	}
 	
-	public List<StudySessionOption> generateOptions(StudySessionWord current) {
+	public List<SessionOption> generateOptions(StudySessionWord current) {
 		String correctAnswer = current.getLessonWord().getRomanizedWord();
 		
-		List<StudySessionOption> options = studied
+		List<SessionOption> options = studied
 				.stream()
 				.map(s -> s.getLessonWord().getRomanizedWord())
 				.filter(w -> ! w.equals(correctAnswer))
 				.limit(MAX_OPTIONS - 1)
-				.map(w -> new StudySessionOption(w, false))
+				.map(w -> new SessionOption(w, false))
 				.collect(Collectors.toList());
 		
-		options.add(new StudySessionOption(correctAnswer, true));
+		options.add(new SessionOption(correctAnswer, true));
 		
 		Collections.shuffle(options);
 		
@@ -68,9 +70,10 @@ public class StudySession {
 	}
 
 	private void initializeStudy(Lesson lesson) {
-		for (LessonWord word : lesson.getLessonWords()) {
-			getStudied().add(new StudySessionWord(word));
-		}
+		this.studied = lesson.getLessonWords()
+						.stream()
+						.map(l -> new StudySessionWord(l))
+						.collect(Collectors.toList());
 	}
 
 	public String getId() {
@@ -120,10 +123,10 @@ public class StudySession {
 		return (getTotalStudied() * 100.0) / getTotalStudies(); 
 	}
 
-	public void increment(StudySessionWord studySessionWord) {
+	public void increment(StudySessionWord sessionWord) {
 		studied
 			.stream()
-			.filter(s -> s.getLessonWord().getWord().equals(studySessionWord.getLessonWord().getWord()))
+			.filter(s -> s.getLessonWord().getWord().equals(sessionWord.getLessonWord().getWord()))
 			.forEach(s -> s.increment());
 	}
 }

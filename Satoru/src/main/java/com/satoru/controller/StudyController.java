@@ -63,10 +63,10 @@ public class StudyController extends GenericController {
 	}
 	
 	@RequestMapping(value = {"/lesson/{lessonId}/answer"}, method = RequestMethod.POST)
-	public String processForm(@ModelAttribute(value = "model") StudySessionWord studySessionWord, @PathVariable("lessonId") String lessonId) {
+	public String processForm(@ModelAttribute(value = "model") StudySessionWord sessionWord, @PathVariable("lessonId") String lessonId) {
 		Lesson lesson = lessonService.findOne(lessonId);
 		
-		Boolean hasFinished = studySessionService.processAnswerAndCheckFinish(getLoggedUser(), lesson, studySessionWord);
+		Boolean hasFinished = studySessionService.processAnswerAndCheckFinish(getLoggedUser(), lesson, sessionWord);
 		
 		if (! hasFinished) {
 			return "redirect:/study/lesson/" + lesson.getId();

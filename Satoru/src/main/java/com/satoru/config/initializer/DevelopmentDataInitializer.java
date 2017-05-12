@@ -24,7 +24,7 @@ public class DevelopmentDataInitializer extends DataInitializer{
 	@Override
 	public void init() {
 		//clear all collections, but leave indexes intact
-		cleanUp();
+		//cleanUp();
 
 		Role admin = createRoleIfNotExists("ROLE_ADMIN");
 		Role user = createRoleIfNotExists("ROLE_USER");

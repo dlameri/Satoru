@@ -37,13 +37,13 @@ public class StudySessionService extends GenericService<StudySession, String, St
 		return studySession; 
 	}
 
-	public Boolean processAnswerAndCheckFinish(User loggedUser, Lesson lesson, StudySessionWord studySessionWord) {
-		auditService.auditAnswer(loggedUser, studySessionWord.answerIsRight());
+	public Boolean processAnswerAndCheckFinish(User loggedUser, Lesson lesson, StudySessionWord sessionWord) {
+		auditService.auditAnswer(loggedUser, sessionWord.answerIsRight());
 		
-		if (studySessionWord.answerIsRight()) {
+		if (sessionWord.answerIsRight()) {
 			StudySession studySession = findByUserAndLesson(loggedUser, lesson);
 			
-			studySession.increment(studySessionWord);
+			studySession.increment(sessionWord);
 			
 			if (! studySession.hasFinished()) {
 				save(studySession);

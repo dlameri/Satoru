@@ -17,6 +17,8 @@ public class ReviewWord extends LessonWord {
 	@DBRef
 	private User user;
 
+	public ReviewWord() {}
+	
 	public ReviewWord(User user, LessonWord lessonWord) {
 		this.user = user;
 		this.lastReview = null;
