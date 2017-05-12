@@ -13,45 +13,34 @@
 			<div class="row">			
 	            <div class="ibox">
 	                <div class="ibox-content lesson-box">
-	                	<div>
+	                	<div>	                		
 		                    <div class="lesson-word" th:text="${model.lessonWord.word}">Palavra em Japonês</div>
-		                    <div class="lesson-desc">		                        
+		                    <div class="lesson-desc">
+			                    <div class="progress">
+								  <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" th:attr="aria-valuenow=${studySession.studiedPercentage}" th:style="${'width: ' + studySession.studiedPercentage + '%'}">
+								    <span class="sr-only" th:text="${studySession.studiedPercentage + ' % concluido'}"></span>
+								  </div>
+								</div>
+										                        
 		                        <a class="replay">
 		                        	<i class="fa fa-volume-up" aria-hidden="true"></i>
 		                        </a>
-		                        <small class="text-muted pull-right" th:text="${'Tradução: ' +  model.lessonWord.meaning}">Significado</small>
-		                        
-		                        
+		                        <small class="text-muted pull-right" th:text="${'Tradução: ' +  model.lessonWord.meaning}">Significado</small>		                       
 		                        
 		                        <div class="m-t form-group clearfix" data-toggle="buttons">
 		                         	<div class="col-xs-12 col-md-4" th:each="option: ${options}">
-		                        		<label th:if="${model.firstTime and option.right}" class="btn btn-block btn-outline btn-primary btn-lg btn-choices btn-cheat">
+		                        		<label th:if="${model.firstTime and option.right}" class="next btn btn-block btn-outline btn-primary btn-lg btn-choices btn-cheat">
 		                            		<input type="radio" th:field="*{answer}" class="choice hidden" th:value="${option.answer}" th:attr="data-right=${option.right}"></input>
 		                            		<span th:text="${option.answer}"></span>
 		                            	</label>
-		                            	<label th:unless="${model.firstTime and option.right}" class="btn btn-block btn-outline btn-primary btn-lg btn-choices">
+		                            	<label th:unless="${model.firstTime and option.right}" class="next btn btn-block btn-outline btn-primary btn-lg btn-choices">
 		                            		<input type="radio" th:field="*{answer}" class="choice hidden" th:value="${option.answer}" th:attr="data-right=${option.right}"></input>
 		                            		<span th:text="${option.answer}"></span>
 		                            	</label>
 									</div>
 		                        </div>
 		                    </div>
-	                    </div>
-	                    <div>
-	                        <div class="hr-line-dashed"></div>
-	                        <div class="form-group" style="padding:20px">
-	                        	<div class="col-sm-8">
-									<div class="progress">
-									  <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" th:attr="aria-valuenow=${studySession.studiedPercentage}" th:style="${'width: ' + studySession.studiedPercentage + '%'}">
-									    <span class="sr-only" th:text="${studySession.studiedPercentage + ' % concluido'}"></span>
-									  </div>
-									</div>
-								</div>
-	                        	<div class="col-sm-4">
-									<button class="btn btn-primary pull-right" type="button" id="next">Próximo</button>
-								</div>
-							</div>		
-	                    </div>
+	                    </div>	                    
 	                </div>
 	            </div>            
 			</div>
@@ -62,18 +51,16 @@
 		$(function() { 
 			setActive(["course", [[${courseName}]]]);
 			
-			$("#next").click(function() {
-				if ($(".choice:checked").length > 0) {
-					if ($(".choice:checked").attr("data-right") == 'true') {
-						$(".choice:checked").parent().parent().effect("pulsate", { times:2 }, 1500, function() {
-							$("form").submit();
-						});
-					} else {
-						$(".choice:checked").parent().removeClass("btn-primary").addClass("btn-danger");
-						$(".choice[data-right=true]").parent().parent().effect("pulsate", { times:2 }, 1500, function() {
-							$("form").submit();
-						});
-					}
+			$(".next").click(function() {						
+				if ($(this).find(".choice").attr("data-right") == 'true') {
+					$(this).find(".choice").parent().parent().effect("pulsate", { times:2 }, 1500, function() {
+						$("form").submit();
+					});
+				} else {
+					$(this).find(".choice").parent().removeClass("btn-primary").addClass("btn-danger");
+					$(".choice[data-right=true]").parent().parent().effect("pulsate", { times:2 }, 1500, function() {
+						$("form").submit();
+					});
 				}
 			});
 			
