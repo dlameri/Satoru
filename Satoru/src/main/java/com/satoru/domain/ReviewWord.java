@@ -14,6 +14,8 @@ public class ReviewWord extends LessonWord {
 	
 	private Integer repetitions = 1;
 	
+	private Double ef = 2.5;
+	
 	@DBRef
 	private User user;
 
@@ -27,7 +29,7 @@ public class ReviewWord extends LessonWord {
 		this.setMeaning(lessonWord.getMeaning());
 		this.setRomanizedWord(lessonWord.getRomanizedWord());
 		
-		scheduleReview();
+		scheduleReview(0);
 	}
 
 	public Date getLastReview() {
@@ -62,7 +64,14 @@ public class ReviewWord extends LessonWord {
 		this.repetitions = repetitions;
 	}
 
-	public void scheduleReview() {
+	public void scheduleReview(Integer quality) {
+		if (quality < 3) {
+			ef = 2.5;
+			repetitions = 1;
+		} else {
+			updateEffort(quality);			
+		}
+		
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.DATE, nextReview(repetitions));
 		
@@ -70,9 +79,19 @@ public class ReviewWord extends LessonWord {
 	}
 
 	private int nextReview(Integer repetitions) {
-		Double fib = Math.floor((Math.pow((1+Math.sqrt(5))/2,repetitions+1)) /Math.sqrt(5) + 1/2);
+		if (repetitions == 1) {
+			return 1;
+		} else if (repetitions == 2) {
+			return 6;
+		} else {
+			Double nextReview = Math.floor(nextReview(repetitions-1)*ef);
 
-		return fib.intValue();
+			return nextReview.intValue();
+		}
+	}
+
+	private void updateEffort(Integer quality) {
+		this.ef = this.ef + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02));
 	}
 
 	public void increaseRepetition() {

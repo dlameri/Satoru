@@ -65,6 +65,10 @@ public class ReviewSessionWord {
 	public boolean answerIsRight() {
 		return reviewWord.getRomanizedWord().equals(answer) || reviewWord.getWord().equals(answer);
 	}
+	
+	public Integer getQuality() {
+		return 3;
+	}
 
 	public void increment() {
 		if (answerIsRight()) {

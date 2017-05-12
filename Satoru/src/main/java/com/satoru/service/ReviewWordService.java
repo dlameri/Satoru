@@ -69,7 +69,7 @@ public class ReviewWordService extends GenericService<ReviewWord, String, Review
 			
 			reviewWord.setLastReview(new Date());
 			reviewWord.increaseRepetition();
-			reviewWord.scheduleReview();
+			reviewWord.scheduleReview(reviewSessionWord.getQuality());
 			
 			save(reviewWord);
 		}
