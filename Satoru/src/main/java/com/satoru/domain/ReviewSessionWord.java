@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 public class ReviewSessionWord {
-	public static Integer MAX_STUDIES = 3;
+	public static Integer MAX_STUDIES = 4;
 	
 	@DBRef
 	private ReviewWord reviewWord;
@@ -61,7 +61,7 @@ public class ReviewSessionWord {
 	}
 
 	public boolean answerIsRight() {
-		return reviewWord.getRomanizedWord().equals(answer);
+		return reviewWord.getRomanizedWord().equals(answer) || reviewWord.getWord().equals(answer);
 	}
 
 	public void increment() {

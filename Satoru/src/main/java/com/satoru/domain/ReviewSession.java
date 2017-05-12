@@ -51,24 +51,6 @@ public class ReviewSession {
 			.filter(ReviewSessionWord::hasntFinished)
 			.findAny()
 			.get();
-	}
-	
-	public List<SessionOption> generateOptions(ReviewSessionWord current) {
-		String correctAnswer = current.getReviewWord().getRomanizedWord();
-		
-		List<SessionOption> options = toReview
-				.stream()
-				.map(s -> s.getReviewWord().getRomanizedWord())
-				.filter(w -> ! w.equals(correctAnswer))
-				.limit(MAX_OPTIONS - 1)
-				.map(w -> new SessionOption(w, false))
-				.collect(Collectors.toList());
-		
-		options.add(new SessionOption(correctAnswer, true));
-		
-		Collections.shuffle(options);
-		
-		return options;
 	}	
 
 	public String getId() {
@@ -115,5 +97,41 @@ public class ReviewSession {
 			.stream()
 			.filter(s -> s.getReviewWord().getWord().equals(sessionWord.getReviewWord().getWord()))
 			.forEach(s -> s.increment());
+	}
+	
+	public List<SessionOption> generateOptions(ReviewSessionWord current) {
+		String correctAnswer = current.getReviewWord().getRomanizedWord();
+		
+		List<SessionOption> options = toReview
+				.stream()
+				.map(s -> s.getReviewWord().getRomanizedWord())
+				.filter(w -> ! w.equals(correctAnswer))
+				.limit(MAX_OPTIONS - 1)
+				.map(w -> new SessionOption(w, false))
+				.collect(Collectors.toList());
+		
+		options.add(new SessionOption(correctAnswer, true));
+		
+		Collections.shuffle(options);
+		
+		return options;
+	}
+
+	public Object generateOptionsForSound(ReviewSessionWord current) {
+		String correctAnswer = current.getReviewWord().getWord();
+		
+		List<SessionOption> options = toReview
+				.stream()
+				.map(s -> s.getReviewWord().getWord())
+				.filter(w -> ! w.equals(correctAnswer))
+				.limit(MAX_OPTIONS - 1)
+				.map(w -> new SessionOption(w, false))
+				.collect(Collectors.toList());
+		
+		options.add(new SessionOption(correctAnswer, true));
+		
+		Collections.shuffle(options);
+		
+		return options;
 	}
 }

@@ -50,24 +50,6 @@ public class StudySession {
 			.findAny()
 			.get();
 	}
-	
-	public List<SessionOption> generateOptions(StudySessionWord current) {
-		String correctAnswer = current.getLessonWord().getRomanizedWord();
-		
-		List<SessionOption> options = studied
-				.stream()
-				.map(s -> s.getLessonWord().getRomanizedWord())
-				.filter(w -> ! w.equals(correctAnswer))
-				.limit(MAX_OPTIONS - 1)
-				.map(w -> new SessionOption(w, false))
-				.collect(Collectors.toList());
-		
-		options.add(new SessionOption(correctAnswer, true));
-		
-		Collections.shuffle(options);
-		
-		return options;
-	}
 
 	private void initializeStudy(Lesson lesson) {
 		this.studied = lesson.getLessonWords()
@@ -128,5 +110,41 @@ public class StudySession {
 			.stream()
 			.filter(s -> s.getLessonWord().getWord().equals(sessionWord.getLessonWord().getWord()))
 			.forEach(s -> s.increment());
+	}
+	
+	public List<SessionOption> generateOptions(StudySessionWord current) {
+		String correctAnswer = current.getLessonWord().getRomanizedWord();
+		
+		List<SessionOption> options = studied
+				.stream()
+				.map(s -> s.getLessonWord().getRomanizedWord())
+				.filter(w -> ! w.equals(correctAnswer))
+				.limit(MAX_OPTIONS - 1)
+				.map(w -> new SessionOption(w, false))
+				.collect(Collectors.toList());
+		
+		options.add(new SessionOption(correctAnswer, true));
+		
+		Collections.shuffle(options);
+		
+		return options;
+	}
+
+	public List<SessionOption> generateOptionsForSound(StudySessionWord current) {
+		String correctAnswer = current.getLessonWord().getWord();
+		
+		List<SessionOption> options = studied
+				.stream()
+				.map(s -> s.getLessonWord().getWord())
+				.filter(w -> ! w.equals(correctAnswer))
+				.limit(MAX_OPTIONS - 1)
+				.map(w -> new SessionOption(w, false))
+				.collect(Collectors.toList());
+		
+		options.add(new SessionOption(correctAnswer, true));
+		
+		Collections.shuffle(options);
+		
+		return options;
 	}
 }

@@ -2,27 +2,29 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org" lang="pt-br">
 <body>
-	<h2 th:fragment="title">Revisão</h2>	
+	<h2 th:fragment="title" th:text="${courseName + ' - Lição ' + lesson.order + ': '+ lesson.name}">Título</h2>	
 	<div class="wrapper wrapper-content" th:fragment="content">
-		<form method="post" class="form-horizontal" th:object="${model}" th:action="@{/review/answer}">			
-			<input type="hidden" th:field="*{reviewWord.id}"></input>
-			<input type="hidden" th:field="*{reviewWord.romanizedWord}"></input>
-			<input type="hidden" th:field="*{reviewWord.word}"></input>
-			<input type="hidden" th:field="*{reviewWord.meaning}"></input>
+		<form method="post" class="form-horizontal" th:object="${model}" th:action="@{/study/lesson/__${lesson.id}__/answer}">			
+			<input type="hidden" th:field="*{lessonWord.id}"></input>
+			<input type="hidden" th:field="*{lessonWord.romanizedWord}"></input>
+			<input type="hidden" th:field="*{lessonWord.word}"></input>
+			<input type="hidden" th:field="*{lessonWord.meaning}"></input>
 			
 			<div class="row">			
 	            <div class="ibox">
 	                <div class="ibox-content lesson-box">
-	                	<div>
-		                    <div class="lesson-word" th:text="${model.reviewWord.word}">Palavra em Japonês</div>
-		                    <div class="lesson-desc">		                        
-		                        <a class="replay">
+	                	<div>	                	
+							<input type="hidden" class="word" th:value="${model.lessonWord.word}"></input>	                		
+		                    <div class="lesson-word">
+		                    	<a class="replay">
 		                        	<i class="fa fa-volume-up" aria-hidden="true"></i>
 		                        </a>
-		                        <small class="text-muted pull-right" th:text="${'Tradução: ' +  model.reviewWord.meaning}">Significado</small>
+		                    </div>
+		                    <div class="lesson-desc">
+		                        <small class="text-muted pull-right" th:text="${'Tradução: ' +  model.lessonWord.meaning}">Significado</small>		                       		                       
 		                        
 		                        <div class="m-t form-group clearfix" data-toggle="buttons">
-		                         	<div class="col-xs-12 col-md-4" th:each="option: ${options}">
+		                         	<div class="col-xs-12 col-md-4" th:each="option: ${options}">		                        		
 		                            	<label class="btn btn-block btn-outline btn-primary btn-lg btn-choices">
 		                            		<input type="radio" th:field="*{answer}" class="choice hidden" th:value="${option.answer}" th:attr="data-right=${option.right}"></input>
 		                            		<span th:text="${option.answer}"></span>
@@ -36,8 +38,8 @@
 	                        <div class="form-group" style="padding:20px">
 	                        	<div class="col-sm-8">
 									<div class="progress">
-									  <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" th:attr="aria-valuenow=${reviewSession.studiedPercentage}" th:style="${'width: ' + reviewSession.studiedPercentage + '%'}">
-									    <span class="sr-only" th:text="${reviewSession.studiedPercentage + ' % concluido'}"></span>
+									  <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" th:attr="aria-valuenow=${studySession.studiedPercentage}" th:style="${'width: ' + studySession.studiedPercentage + '%'}">
+									    <span class="sr-only" th:text="${studySession.studiedPercentage + ' % concluido'}"></span>
 									  </div>
 									</div>
 								</div>
@@ -71,8 +73,8 @@
 				}
 			});
 			$(".replay").click(function() {
-				speak($(".lesson-word").html());	
-			});
+				speak($(".word").val());	
+			}).trigger("click");
 		});		
 		/*]]>*/
 	</script>

@@ -33,9 +33,16 @@ public class ReviewController extends GenericController {
 
 		model.addAttribute("reviewSession", reviewSession);
 		model.addAttribute("model", nextWord);
-		model.addAttribute("options", reviewSession.generateOptions(nextWord));
+		
+		if (nextWord.isLastSession()) {			
+			model.addAttribute("options", reviewSession.generateOptionsForSound(nextWord));
 
-		return "review/review";
+			return "review/reviewSound";
+		} else {
+			model.addAttribute("options", reviewSession.generateOptions(nextWord));
+
+			return "review/review";
+		}
 	}
 
 	@RequestMapping(value = {"/answer"}, method = RequestMethod.POST)

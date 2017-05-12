@@ -14,11 +14,13 @@
 	            <div class="ibox">
 	                <div class="ibox-content lesson-box">
 	                	<div>
-		                    <div class="lesson-word" th:text="${model.reviewWord.word}">Palavra em Japonês</div>
-		                    <div class="lesson-desc">		                        
-		                        <a class="replay">
+	                		<input type="hidden" class="word" th:value="${model.reviewWord.word}"></input>
+		                    <div class="lesson-word">
+		                    	<a class="replay">
 		                        	<i class="fa fa-volume-up" aria-hidden="true"></i>
 		                        </a>
+		                    </div>
+		                    <div class="lesson-desc">		                        		                        
 		                        <small class="text-muted pull-right" th:text="${'Tradução: ' +  model.reviewWord.meaning}">Significado</small>
 		                        
 		                        <div class="m-t form-group clearfix" data-toggle="buttons">
@@ -71,8 +73,8 @@
 				}
 			});
 			$(".replay").click(function() {
-				speak($(".lesson-word").html());	
-			});
+				speak($(".word").val());	
+			}).trigger("click");
 		});		
 		/*]]>*/
 	</script>

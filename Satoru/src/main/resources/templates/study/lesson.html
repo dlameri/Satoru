@@ -15,8 +15,7 @@
 	                <div class="ibox-content lesson-box">
 	                	<div>
 		                    <div class="lesson-word" th:text="${model.lessonWord.word}">Palavra em Japonês</div>
-		                    <div class="lesson-desc">
-		                        <span class="lesson-progress" th:text="${model.quantity + '/' + model.maxStudies}">1/1</span>
+		                    <div class="lesson-desc">		                        
 		                        <a class="replay">
 		                        	<i class="fa fa-volume-up" aria-hidden="true"></i>
 		                        </a>
@@ -77,10 +76,15 @@
 					}
 				}
 			});
+			
 			$(".replay").click(function() {
 				speak($(".lesson-word").html());	
-			}).trigger("click");
-		});		
+			});
+			
+			if ($(".btn-cheat").size() > 0) {
+				$(".replay").trigger("click");
+			}
+		});
 		/*]]>*/
 	</script>
 </body>

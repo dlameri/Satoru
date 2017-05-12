@@ -57,9 +57,17 @@ public class StudyController extends GenericController {
 		model.addAttribute("lesson", lesson);
 		model.addAttribute("studySession", studySession);
 		model.addAttribute("model", nextWord);
-		model.addAttribute("options", studySession.generateOptions(nextWord));
+		
+		if (nextWord.isLastSession()) {
+			model.addAttribute("options", studySession.generateOptionsForSound(nextWord));
 
-		return "study/lesson";
+			return "study/lessonSound";
+		} else {
+			model.addAttribute("options", studySession.generateOptions(nextWord));
+
+			return "study/lesson";
+		}
+		
 	}
 	
 	@RequestMapping(value = {"/lesson/{lessonId}/answer"}, method = RequestMethod.POST)
