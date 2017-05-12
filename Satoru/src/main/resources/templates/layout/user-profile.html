@@ -7,11 +7,9 @@
 	<ul>
 		<li class="nav-header" th:fragment="user">
 			<div class="dropdown profile-element">
-				<!-- 
 				<span> 
-					<img alt="image" class="img-circle" th:src="@{/img/profile_small.jpg}"></img>
-				</span> 
-				 -->
+					<img alt="image" class="img-circle" th:src="@{/img/profile.jpg}"></img>
+				</span>				 
 				<a data-toggle="dropdown" class="dropdown-toggle" href="#"> 
 					<span class="clear"> 
 						<span class="block m-t-xs"> 
@@ -24,8 +22,7 @@
 					</span>
 				</a>
 				<ul class="dropdown-menu animated fadeInRight m-t-xs">
-					<li><a href="profile.html">Perfil</a></li>
-					<li><a href="contacts.html">Configurações</a></li>
+					<li><a th:href="@{/user/profile}">Perfil</a></li>
 					<li class="divider"></li>
 					<li><a th:href="@{/logout}">Logout</a></li>
 				</ul>

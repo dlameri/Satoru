@@ -20,10 +20,14 @@ public class UserService extends GenericService<User, String, UserRepository>{
 			}
 			
 			// encripting password
-			user.setPassword(encoder.encode(user.getPassword()));
-		} 
+			user.setPassword(encriptPassword(user.getPassword()));
+		}
 		
 		return super.save(user);
+	}
+
+	public String encriptPassword(String password) {
+		return encoder.encode(password);
 	}
 	
 	public User getByEmail(String email) {
@@ -32,5 +36,5 @@ public class UserService extends GenericService<User, String, UserRepository>{
 
 	public boolean exists(User user) {
 		return getByEmail(user.getEmail()) != null;
-	}	
+	}
 }

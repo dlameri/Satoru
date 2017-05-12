@@ -1,10 +1,12 @@
 package com.satoru.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.WebRequest;
@@ -48,5 +50,30 @@ public class UserController extends GenericController {
 
 			return "redirect:/register/login?registerSuccess";
 		}
+	}
+	
+	@Layout(value=Layout.DEFAULT)
+	@RequestMapping(path="/user/profile", method = RequestMethod.GET)
+	public String profile(Model model) {
+	    model.addAttribute("model", getLoggedUser());
+	    
+	    return "user/profile";
+	}
+	
+	@RequestMapping(path="/user/profile/save", method = RequestMethod.POST)
+	public String updateProfile(@ModelAttribute(value = "model") User user) {
+		User loggedUser = getLoggedUser();
+		
+		loggedUser.setFirstname(user.getFirstname());
+		loggedUser.setLastname(user.getLastname());
+		loggedUser.setEmail(user.getEmail());
+		
+		if (! StringUtils.isEmpty(user.getPassword())) {
+			loggedUser.setPassword(userService.encriptPassword(user.getPassword()));
+		}
+
+		userService.save(loggedUser);
+		
+		return "redirect:/home";
 	}
 }
