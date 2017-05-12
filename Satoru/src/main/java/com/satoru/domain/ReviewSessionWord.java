@@ -78,8 +78,8 @@ public class ReviewSessionWord {
 		}
 	}
 
-	public void increment() {
-		if (answerIsRight()) {
+	public void increment(boolean answerIsRight) {
+		if (answerIsRight) {
 			this.quantity++;
 		} else {
 			this.errors++;

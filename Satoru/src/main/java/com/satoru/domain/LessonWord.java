@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document	
@@ -17,6 +18,7 @@ public class LessonWord {
 	
 	private String meaning;
 	
+	@DBRef
 	private List<LessonWord> reviewLinks = new ArrayList<>();
 
 	public LessonWord() {}

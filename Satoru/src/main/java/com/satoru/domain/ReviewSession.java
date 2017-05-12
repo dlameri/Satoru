@@ -96,7 +96,7 @@ public class ReviewSession {
 		toReview
 			.stream()
 			.filter(s -> s.getReviewWord().getWord().equals(sessionWord.getReviewWord().getWord()))
-			.forEach(s -> s.increment());
+			.forEach(s -> s.increment(sessionWord.answerIsRight()));
 	}
 	
 	public List<SessionOption> generateOptions(ReviewSessionWord current) {

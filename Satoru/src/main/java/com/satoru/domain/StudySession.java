@@ -109,7 +109,7 @@ public class StudySession {
 		studied
 			.stream()
 			.filter(s -> s.getLessonWord().getWord().equals(sessionWord.getLessonWord().getWord()))
-			.forEach(s -> s.increment());
+			.forEach(s -> s.increment(sessionWord.answerIsRight()));
 	}
 	
 	public List<SessionOption> generateOptions(StudySessionWord current) {
