@@ -27,7 +27,7 @@
 					</ul>
 				</li>
 				<li id="review" sec:authorize="hasRole('ROLE_USER')">
-					<a href="mailbox.html">
+					<a href="mailbox.html" th:classappend="${reviewQuantity == 0} ? noReview : hasReview">
 						<i class="fa fa-signal"></i> 
 						<span class="nav-label">Revisões</span>
 						<span th:unless="${reviewQuantity == 0}" class="label label-warning pull-right" th:text="${reviewQuantity}">Quantidade de Reviews</span>
