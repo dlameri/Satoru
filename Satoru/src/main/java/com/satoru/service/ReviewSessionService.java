@@ -44,7 +44,8 @@ public class ReviewSessionService extends GenericService<ReviewSession, String, 
 			if (! studySession.hasFinished()) {
 				save(studySession);
 			} else {
-				// agendar proxima revisao
+				reviewWordService.saveReviewedWords(loggedUser, studySession);
+				
 				delete(studySession);
 
 				return true;

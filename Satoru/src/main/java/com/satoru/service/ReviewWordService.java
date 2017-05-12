@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.satoru.domain.Lesson;
 import com.satoru.domain.LessonWord;
+import com.satoru.domain.ReviewSession;
+import com.satoru.domain.ReviewSessionWord;
 import com.satoru.domain.ReviewWord;
 import com.satoru.domain.User;
 import com.satoru.repository.ReviewWordRepository;
@@ -59,5 +61,19 @@ public class ReviewWordService extends GenericService<ReviewWord, String, Review
 	
 	public List<ReviewWord> getReviewWords(User user) {
 		return getRepository().findByUserAndNextReviewLessThan(user, new Date());
+	}
+
+	public void saveReviewedWords(User loggedUser, ReviewSession studySession) {
+		for (ReviewSessionWord reviewSessionWord : studySession.getToReview()) {
+			ReviewWord reviewWord = reviewSessionWord.getReviewWord();
+			
+			reviewWord.setLastReview(new Date());
+			reviewWord.increaseRepetition();
+			reviewWord.scheduleReview();
+			
+			save(reviewWord);
+		}
+
+		
 	}
 }

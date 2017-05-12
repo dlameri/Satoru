@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 public class ReviewSessionWord {
-	public static Integer MAX_STUDIES = 1;
+	public static Integer MAX_STUDIES = 3;
 	
 	@DBRef
 	private ReviewWord reviewWord;

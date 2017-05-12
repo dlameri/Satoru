@@ -64,8 +64,18 @@ public class ReviewWord extends LessonWord {
 
 	public void scheduleReview() {
 		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.DATE, 1);
+		calendar.add(Calendar.DATE, nextReview(repetitions));
 		
 		this.nextReview = calendar.getTime();		
+	}
+
+	private int nextReview(Integer repetitions) {
+		Double fib = Math.floor((Math.pow((1+Math.sqrt(5))/2,repetitions+1)) /Math.sqrt(5) + 1/2);
+
+		return fib.intValue();
+	}
+
+	public void increaseRepetition() {
+		this.repetitions++;		
 	}
 }

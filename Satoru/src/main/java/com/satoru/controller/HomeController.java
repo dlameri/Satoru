@@ -28,7 +28,6 @@ public class HomeController extends GenericController {
 		
 		model.addAttribute("totalStudies", auditService.getTotalStudies(audits));
 		model.addAttribute("totalReviews", auditService.getTotalReviews(audits));
-		
 
 		return "home/dashboard";
 	}
