@@ -16,7 +16,7 @@
                                 <a th:href="@{/study/lesson/{id}(id=${model.id})}" class="btn btn-xs btn-outline btn-primary">Aprender <i class="fa fa-long-arrow-right"></i> </a>
                             </div>
                             <div th:if="${model.order &lt; progress.currentOrder}" class="m-t text-righ">
-                                <a th:href="@{/study/lesson/{id}(id=${model.id})}" class="btn btn-xs btn-outline btn-warning">Relembrar <i class="fa fa-long-arrow-right"></i> </a>
+                                <a th:href="@{/study/lesson/{id}(id=${model.id})}" class="btn btn-xs btn-outline btn-warning">Refazer <i class="fa fa-long-arrow-right"></i> </a>
                             </div>
                             <div th:if="${model.order &gt; progress.currentOrder}" class="m-t text-righ">
                                 <a onclick="return false;" class="disabled btn btn-xs btn-outline btn-white">Bloqueado <i class="fa fa-long-arrow-right"></i> </a>
